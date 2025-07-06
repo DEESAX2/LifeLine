@@ -10,6 +10,8 @@ import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import BloodRequests from "./pages/BloodRequests";
 import NotFound from "./pages/NotFound";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 
 
@@ -25,6 +27,16 @@ const progressRouter = createBrowserRouter([
     { path: "/user-dashboard", element: <UserDashboard /> },
      { path: "/contact", element: <Contact /> },
       { path: "*/*", element: <NotFound /> },
+      { path: "/footer", element: <Footer /> },
+      { path: "/navbar", element: <Navbar /> },
+      
+      
+      
+      
+      
+      
+      
+
 
 
 ])
