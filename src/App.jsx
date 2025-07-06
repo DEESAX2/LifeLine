@@ -1,0 +1,43 @@
+import { createBrowserRouter, RouterProvider } from "react-router";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";  
+import Donate from "./pages/Donate";
+import DonorHistory from "./pages/DonorHistory";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import UserDashboard from "./pages/UserDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import BloodRequests from "./pages/BloodRequests";
+import NotFound from "./pages/NotFound";
+
+
+
+const progressRouter = createBrowserRouter([
+  { path: "/", element: <Home /> },
+   { path: "/about", element: <About /> },
+    { path: "/admin-dashboard", element: <AdminDashboard /> },
+     { path: "/blood-requests", element: <BloodRequests /> },
+      { path: "/donate", element: <Donate /> },
+       { path: "/donor-history", element: <DonorHistory /> },
+   { path: "/login", element: <Login /> },
+   { path: "/register", element: <Register /> },
+    { path: "/user-dashboard", element: <UserDashboard /> },
+     { path: "/contact", element: <Contact /> },
+      { path: "*/*", element: <NotFound /> },
+
+
+])
+
+ function App() {
+    
+  return (
+    <>
+    <RouterProvider router={progressRouter} />
+    </>
+  )
+}
+
+export default App
+
+
