@@ -11,7 +11,7 @@ const CalloutSection = () => (
         <img src={play} alt="Google Play" className="h-12 cursor-pointer" />
         <img src={appstore} alt="App Store" className="h-12 cursor-pointer" />
       </div>
-      <a href="/signup" className="mt-4 inline-block bg-white text-red-600 px-6 py-2 rounded font-semibold hover:bg-red-100 transition">Create your donor profile</a>
+      <a href="/login" className="mt-4 inline-block bg-white text-red-600 px-6 py-2 rounded font-semibold hover:bg-red-100 transition">Create your donor profile</a>
     </div>
   </section>
 );

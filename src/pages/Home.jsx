@@ -7,9 +7,10 @@ import StoriesSection from '../components/StoriesSection';
 import CalloutSection from '../components/CalloutSection';
 import NewsletterSection from '../components/NewsletterSection';
 import PartnersSection from '../components/PartnersSection';
+import PartnerSpotlight from '../components/PartnerSpotlight';
 import EligibilitySection from '../components/EligibilitySection';
 import Footer from '../components/Footer';
-import heroImg from '../assets/Images/moment4.jpg';
+import heroVideo from '../assets/videos/video6.mp4';
 import howImg from '../assets/Images/moment15.jpg';
 
 const HeroSection = () => {
@@ -17,16 +18,20 @@ const HeroSection = () => {
     <section
       id="hero"
       className="relative pt-24 px-6 pb-20 flex flex-col items-center justify-center text-center text-white overflow-hidden min-h-screen"
-      style={{
-        backgroundImage: `url(${heroImg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
     >
-      <div className="absolute inset-0 bg-red-300 opacity-30 z-0"></div>
+      {/* Background Video */}
+      <video
+        src={heroVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      />
+      {/* Red overlay */}
+      <div className="absolute inset-0 bg-red-300 opacity-30 z-10"></div>
 
-      <div className="relative z-10 max-w-3xl">
+      <div className="relative z-20 max-w-3xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">Save Lives with LifeLine</h1>
         <p className="text-lg md:text-xl mb-6">
           Connecting voluntary blood donors to hospitals across Ghana.
@@ -225,6 +230,7 @@ const Home = () => {
         <StoriesSection />
         <CalloutSection />
         <NewsletterSection />
+        <PartnerSpotlight />
         <PartnersSection />
         <TestimonialSection /> 
       </main>

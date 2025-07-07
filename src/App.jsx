@@ -28,7 +28,7 @@ const progressRouter = createBrowserRouter([
     { path: "/admin-dashboard", element: <AdminDashboard /> },
 
      { path: "/contact", element: <Contact /> },
-      { path: "*/*", element: <NotFound /> },
+      { path: "*", element: <NotFound /> },
       { path: "/footer", element: <Footer /> },
       { path: "/navbar", element: <Navbar /> },
       

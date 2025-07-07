@@ -11,9 +11,9 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#2563EB] text-white px-6 py-10 md:py-16">
+    <footer className="bg-[#2563EB] text-white px-4 py-4 md:py-6">
       {/* Call to Action */}
-      <div className="text-center max-w-3xl mx-auto mb-6">
+      <div className="text-center max-w-3xl mx-auto mb- 6">
         <h2 className="text-2xl md:text-3xl font-semibold mb-4">Every Drop Counts.</h2>
         <p className="text-base md:text-lg leading-relaxed">
           Join thousands of Ghanaians who are making a difference. Your donation could be the gift of life someone desperately needs.

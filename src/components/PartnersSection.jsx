@@ -17,7 +17,7 @@ const PartnersSection = () => (
       <h2 className="text-3xl font-bold text-red-600 mb-8">Partner Hospitals & Sponsors</h2>
       <div className="flex flex-wrap justify-center gap-8 items-center">
         {partners.map((p) => (
-          <img key={p.id} src={p.img} alt={p.name} className="h-16 transition" />
+          <img key={p.id} src={p.img} alt={p.name} className="h-24 transition" />
         ))}
       </div>
     </div>
