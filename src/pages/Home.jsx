@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import heroImg from '../assets/Images/moment4.jpg';
+import howImg from '../assets/Images/moment15.jpg';
 
 const HeroSection = () => {
   return (
@@ -116,6 +117,47 @@ const UrgentRequestSection = () => {
   );
 };
 
+// ✅ How Donation Works Section
+const HowDonationWorksSection = () => {
+  return (
+    <section className="bg-white py-12 px-4">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
+        <div className="flex-1 text-gray-800">
+          <h2 className="text-3xl font-bold text-red-600 mb-4">How Blood Donation Works</h2>
+          <ol className="space-y-4 list-decimal list-inside text-gray-700">
+            <li>
+                <span className="font-semibold text-gray-900">Registration</span>
+                <p className="mt-1">Complete a quick registration form with your basic information and medical history.</p>
+              </li>
+              <li>
+                <span className="font-semibold text-gray-900">Health Screening</span>
+                <p className="mt-1">A healthcare professional will check your temperature, blood pressure, pulse, and hemoglobin levels.</p>
+              </li>
+              <li>
+                <span className="font-semibold text-gray-900">Blood Donation</span>
+                <p className="mt-1">The actual donation takes only 8-10 minutes. You'll donate about one pint of blood.</p>
+              </li>
+              <li>
+                <span className="font-semibold text-gray-900">Rest & Refreshments</span>
+                <p className="mt-1">After donating, you'll rest and enjoy refreshments for 15 minutes before leaving.</p>
+              </li>
+            </ol>
+          <div className="mt-6">
+            <a href="/donate">
+              <button className="bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition duration-300 font-semibold">
+                Start Your Donation Journey
+              </button>
+            </a>
+          </div>
+        </div>
+        <div className="flex-1">
+          <img src={howImg} alt="Donation process" className="rounded shadow-md w-full max-w-xs object-cover mx-auto" />
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // ✅ Testimonial Section
 const TestimonialSection = () => {
   return (
@@ -126,25 +168,19 @@ const TestimonialSection = () => {
           <p className="text-gray-700 italic">
             “I feel so fulfilled knowing I helped save a life. LifeLine made the process easy and safe.”
           </p>
-          <p className="mt-4 font-semibold text-red-500">— Michael H.</p>
+          <p className="mt-4 font-semibold text-red-500">—Michael H.</p>
         </div>
         <div className="bg-gray-50 p-6 rounded shadow">
           <p className="text-gray-700 italic">
             “Their mobile donation van came right to our campus. Super convenient!”
           </p>
+          <p className="mt-4 font-semibold text-red-500">— Rachel K.</p>
+        </div>
+        <div className="bg-gray-50 p-6 rounded shadow">
+          <p className="text-gray-700 italic">
+            “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
+          </p>
           <p className="mt-4 font-semibold text-red-500">— Sandy A.</p>
-        </div>
-        <div className="bg-gray-50 p-6 rounded shadow">
-          <p className="text-gray-700 italic">
-            “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
-          </p>
-          <p className="mt-4 font-semibold text-red-500">— Rachael K.</p>
-        </div>
-        <div className="bg-gray-50 p-6 rounded shadow">
-          <p className="text-gray-700 italic">
-            “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
-          </p>
-          <p className="mt-4 font-semibold text-red-500">— Elisa H.</p>
         </div>
         <div className="bg-gray-50 p-6 rounded shadow">
           <p className="text-gray-700 italic">
@@ -156,7 +192,13 @@ const TestimonialSection = () => {
           <p className="text-gray-700 italic">
             “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
           </p>
-          <p className="mt-4 font-semibold text-red-500">— Earl Deslinc.</p>
+          <p className="mt-4 font-semibold text-red-500">— Elisa H.</p>
+        </div>
+        <div className="bg-gray-50 p-6 rounded shadow">
+          <p className="text-gray-700 italic">
+            “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
+          </p>
+          <p className="mt-4 font-semibold text-red-500">— Earl Deslic.</p>
         </div>
       </div>
     </section>
@@ -173,6 +215,7 @@ const Home = () => {
         <StatsSection />
         <DonationMoments /> 
         <UrgentRequestSection />
+        <HowDonationWorksSection />
         <TestimonialSection /> 
       </main>
 
