@@ -16,7 +16,7 @@ const HeroSection = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="absolute inset-0 bg-red-100 opacity-30 z-0"></div>
+      <div className="absolute inset-0 bg-red-300 opacity-30 z-0"></div>
 
       <div className="relative z-10 max-w-3xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">Save Lives with LifeLine</h1>
@@ -29,12 +29,6 @@ const HeroSection = () => {
             className="bg-white text-red-600 px-6 py-3 rounded-md font-semibold hover:bg-red-100 transition duration-300"
           >
             Donate Blood Now
-          </button>
-          <button
-            onClick={() => (window.location.href = '/admin-dashboard')}
-            className="bg-white text-red-600 px-6 py-3 rounded-md font-semibold hover:bg-red-100 transition duration-300"
-          >
-            Admin Login
           </button>
         </div>
       </div>
@@ -168,7 +162,7 @@ const TestimonialSection = () => {
           <p className="text-gray-700 italic">
             “I feel so fulfilled knowing I helped save a life. LifeLine made the process easy and safe.”
           </p>
-          <p className="mt-4 font-semibold text-red-500">—Michael H.</p>
+          <p className="mt-4 font-semibold text-red-500">—Rahmat H.</p>
         </div>
         <div className="bg-gray-50 p-6 rounded shadow">
           <p className="text-gray-700 italic">
@@ -180,19 +174,19 @@ const TestimonialSection = () => {
           <p className="text-gray-700 italic">
             “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
           </p>
-          <p className="mt-4 font-semibold text-red-500">— Sandy A.</p>
+          <p className="mt-4 font-semibold text-red-500">—Seth A.</p>
         </div>
         <div className="bg-gray-50 p-6 rounded shadow">
           <p className="text-gray-700 italic">
             “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
           </p>
-          <p className="mt-4 font-semibold text-red-500">— Esther M.</p>
+          <p className="mt-4 font-semibold text-red-500">—  Michael H.</p>
         </div>
         <div className="bg-gray-50 p-6 rounded shadow">
           <p className="text-gray-700 italic">
             “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
           </p>
-          <p className="mt-4 font-semibold text-red-500">— Elisa H.</p>
+          <p className="mt-4 font-semibold text-red-500">— Ms Sandra Elisa Manorkie.</p>
         </div>
         <div className="bg-gray-50 p-6 rounded shadow">
           <p className="text-gray-700 italic">
