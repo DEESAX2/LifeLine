@@ -33,7 +33,7 @@ const Footer = () => {
       <div className="flex justify-center">
         <button
           onClick={scrollToHero}
-          className="bg-white text-blue-900 p-3 rounded-full hover:bg-blue-100 transition duration-300"
+          className="bg-white text-blue-600 p-3 rounded-full hover:bg-blue-100 transition duration-300"
           title="Back to homepage" ><FaArrowUp />
         </button>
       </div>

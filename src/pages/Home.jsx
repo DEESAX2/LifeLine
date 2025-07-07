@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import heroImg from '../assets/Images/moment4.jpg';
 
 const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative px-6 py-20 flex flex-col items-center justify-center text-center text-white overflow-hidden "
+      className="relative pt-24 px-6 pb-20 flex flex-col items-center justify-center text-center text-white overflow-hidden min-h-screen"
       style={{
-        backgroundImage: "url('/assets/image/moment4.jpg')",
+        backgroundImage: `url(${heroImg})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="absolute inset-0 bg-red-800 opacity-60 z-0"></div>
+      <div className="absolute inset-0 bg-red-800 opacity-30 z-0"></div>
 
       <div className="relative z-10 max-w-3xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">Save Lives with LifeLine</h1>
@@ -62,15 +63,29 @@ const StatsSection = () => {
 // ✅ Donation Moments Carousel
 const DonationMoments = () => {
   const imageNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const speed = 1; // pixels per tick
+    const interval = setInterval(() => {
+      container.scrollLeft += speed;
+      if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+        container.scrollLeft = 0;
+      }
+    }, 20);
+    return () => clearInterval(interval);
+  }, []);
   return (
     <section className="bg-gray-100 py-10">
       <h2 className="text-3xl font-bold text-center text-red-600 mb-6">Donation Moments</h2>
-      <div className="overflow-x-auto whitespace-nowrap px-4">
+      <div ref={scrollRef} className="overflow-hidden whitespace-nowrap px-4">
         <div className="flex gap-4">
           {imageNumbers.map((num) => (
           <img
   key={num}
-  src={`/assets/image/moment${num}.jpg`}
+  src={new URL(`../assets/Images/moment${num}.jpg`, import.meta.url).href}
   alt={`Moment ${num}`}
   className="h-60 w-80 object-cover rounded shadow-md flex-shrink-0"
 />
@@ -111,7 +126,7 @@ const TestimonialSection = () => {
           <p className="text-gray-700 italic">
             “I feel so fulfilled knowing I helped save a life. LifeLine made the process easy and safe.”
           </p>
-          <p className="mt-4 font-semibold text-red-500">— Esther M.</p>
+          <p className="mt-4 font-semibold text-red-500">— Michael H.</p>
         </div>
         <div className="bg-gray-50 p-6 rounded shadow">
           <p className="text-gray-700 italic">
@@ -123,7 +138,25 @@ const TestimonialSection = () => {
           <p className="text-gray-700 italic">
             “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
           </p>
+          <p className="mt-4 font-semibold text-red-500">— Rachael K.</p>
+        </div>
+        <div className="bg-gray-50 p-6 rounded shadow">
+          <p className="text-gray-700 italic">
+            “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
+          </p>
           <p className="mt-4 font-semibold text-red-500">— Elisa H.</p>
+        </div>
+        <div className="bg-gray-50 p-6 rounded shadow">
+          <p className="text-gray-700 italic">
+            “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
+          </p>
+          <p className="mt-4 font-semibold text-red-500">— Esther M.</p>
+        </div>
+        <div className="bg-gray-50 p-6 rounded shadow">
+          <p className="text-gray-700 italic">
+            “Highly recommend LifeLine to every healthy person. Donate blood, save lives.”
+          </p>
+          <p className="mt-4 font-semibold text-red-500">— Earl Deslinc.</p>
         </div>
       </div>
     </section>
@@ -138,9 +171,9 @@ const Home = () => {
       <main className="flex-1 pt-20">
         <HeroSection />
         <StatsSection />
-        <DonationMoments /> {/* 👈 New Carousel Section */}
+        <DonationMoments /> 
         <UrgentRequestSection />
-        <TestimonialSection /> {/* 👈 New Testimonials Section */}
+        <TestimonialSection /> 
       </main>
 
       <Footer />

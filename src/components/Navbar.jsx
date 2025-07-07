@@ -13,7 +13,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between relative">
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md px-6 py-4 flex items-center justify-between z-50">
       {/* Logo */}
       <div className="flex items-center gap-3">
         <a href="/">
