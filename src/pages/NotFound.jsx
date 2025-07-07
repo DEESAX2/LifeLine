@@ -1,14 +1,21 @@
-import notFoundImg from '../assets/Images/notfound.png';
-import { Link } from 'react-router';
+import React from 'react';
+import notFoundVideo from '../assets/videos/notfound.mp4';
+import { Link } from 'react-router'; 
 
-export default function NotFound() {
-  
+const NotFound = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white p-4 text-center">
-      <img src={notFoundImg} alt="Page not found" className="w-100 md:w-[50rem] mb-8" />
-      <h1 className="text-3xl font-bold mb-2">Oops! Page not found</h1>
-      <p className="text-gray-600 mb-4">The page you are looking for doesn't exist.</p>
-      <Link to="/" className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition-colors shadow">Return Home</Link>
+      <video className="w-full max-w-2xl mb-8 rounded shadow" src={notFoundVideo} autoPlay loop muted playsInline></video>
+      <h1 className="text-3xl font-bold text-red-600 mb-2">Oops! Page not found</h1>
+      <p className="text-gray-600 mb-4">
+        The page you are looking for might have been removed or does not exist.
+      </p>
+      <Link
+        to="/"
+        className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300">Go Back Home
+      </Link>
     </div>
-  )
-}
+  );
+};
+
+export default NotFound;
