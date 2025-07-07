@@ -1,7 +1,7 @@
 import React from 'react';
 
 const NewsletterSection = () => (
-  <section className="bg-white py-12 px-4" id="newsletter">
+  <section className="bg-red-100 py-12 px-4 mb-4" id="newsletter">
     <div className="max-w-md mx-auto text-center">
       <h2 className="text-2xl font-bold text-red-600 mb-4">Stay Informed</h2>
       <p className="text-gray-700 mb-6">Subscribe to receive blood drive schedules and urgent requests.</p>

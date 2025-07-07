@@ -12,7 +12,7 @@ const partners = [
 ];
 
 const PartnersSection = () => (
-  <section className="bg-gray-50 py-12 px-4" id="partners">
+  <section className="bg-gray-100 py-12 px-4 " id="partners">
     <div className="max-w-6xl mx-auto text-center">
       <h2 className="text-3xl font-bold text-red-600 mb-8">Partner Hospitals & Sponsors</h2>
       <div className="flex flex-wrap justify-center gap-8 items-center">

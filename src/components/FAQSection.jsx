@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-// Quick accordion component for FAQ / Myths vs Facts
-// Feel free to update questions & answers or pull them dynamically later.
+
 const faqItems = [
   {
     q: 'Is donating blood safe?',
