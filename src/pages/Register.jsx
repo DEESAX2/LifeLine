@@ -17,20 +17,8 @@ export default function Register() {
           <form className="space-y-3 sm:space-y-4 text-left">
             <p className="font-bold mb-0">Hospital Name</p>
             <input
-              type="text"
+              type="name"
               placeholder="Enter Your Hospital Name"
-              className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
-            />
-            <p className="font-bold mb-0">Location</p>
-            <input
-              type="text"
-              placeholder="Your Location"
-              className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
-            />
-            <p className="font-bold mb-0">Contact Number</p>
-            <input
-              type="text"
-              placeholder="Enter Your Contact Number"
               className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
             <p className="font-bold mb-0">Email</p>
@@ -45,13 +33,22 @@ export default function Register() {
               placeholder="Set Your Password"
               className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
-
+            <p className="font-bold mb-0">Location</p>
+            <input
+              type="location"
+              placeholder="Your Location"
+              className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+            />
+            <p className="font-bold mb-0">Phone Number</p>
+            <input
+              type="phone"
+              placeholder="Enter Your Phone Number"
+              className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+            />
             <button
               type="submit"
               className="w-full py-2 mt-4 sm:mt-5 bg-buttonred text-white rounded hover:bg-red-700 transition"
-            >
-              Register
-            </button>
+            >Register</button>
           </form>
 
           <div className="mt-5 sm:mt-6 text-sm">
