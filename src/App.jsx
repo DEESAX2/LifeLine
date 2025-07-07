@@ -25,6 +25,8 @@ const progressRouter = createBrowserRouter([
    { path: "/login", element: <Login /> },
    { path: "/register", element: <Register /> },
     { path: "/user-dashboard", element: <UserDashboard /> },
+    { path: "/admin-dashboard", element: <AdminDashboard /> },
+
      { path: "/contact", element: <Contact /> },
       { path: "*/*", element: <NotFound /> },
       { path: "/footer", element: <Footer /> },
