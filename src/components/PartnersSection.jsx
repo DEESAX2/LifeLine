@@ -2,11 +2,13 @@ import React from 'react';
 import hosp1 from '../assets/Images/hosp1.png';
 import hosp2 from '../assets/Images/hosp2.png';
 import hosp3 from '../assets/Images/hosp3.png';
+import hosp4 from '../assets/Images/hosp4.png';
 
 const partners = [
   { id: 1, img: hosp1, name: 'Korle Bu' },
   { id: 2, img: hosp2, name: 'Komfo Anokye' },
-  { id: 3, img: hosp3, name: '37 Military' }
+  { id: 3, img: hosp3, name: '37 Military' },
+  { id: 4, img: hosp4, name: 'Unesco' },
 ];
 
 const PartnersSection = () => (

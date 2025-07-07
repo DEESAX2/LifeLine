@@ -58,7 +58,7 @@ const FAQSection = () => {
   return (
     <section className="bg-gray-50 py-12 px-4" id="faq">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">FAQ & Myths vs. Facts</h2>
+        <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">F.A.Q</h2>
         {faqItems.map((item, i) => (
           <Question key={i} index={i} openIndex={openIndex} setOpenIndex={setOpenIndex} {...item} />
         ))}

@@ -13,7 +13,7 @@ const EligibilitySection = () => (
           <li>Hemoglobin within safe range</li>
           <li>Not pregnant or recently given birth</li>
         </ul>
-        <a href="/eligibility" className="mt-6 inline-block bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition font-semibold">Can I donate?</a>
+        <a href="/contact" className="mt-6 inline-block bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition font-semibold">Can I donate?</a>
       </div>
       <div className="text-center">
         <img src={new URL('../assets/Images/moment11.jpg', import.meta.url).href} alt="Eligibility" className="rounded shadow-md w-100 mx-auto h-90 object-cover" />
