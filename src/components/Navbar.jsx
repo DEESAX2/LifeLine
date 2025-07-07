@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { HiMenu, HiX } from 'react-icons/hi';
-import logoImg from '../assets/Images/logo.jpeg';
+import logoImg from '../assets/Images/lifelinelogo.jpg';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,13 +13,12 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-md px-6 py-4 flex items-center justify-between z-50">
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md px-1 py-0 flex items-center justify-between z-50">
       {/* Logo */}
       <div className="flex items-center gap-3">
-        <a href="/">
-          <img src={logoImg} alt="LifeLine Logo" className="h-8 w-8 object-contain" />
+        <a href="/admin-dashboard">
+          <img src={logoImg} alt="LifeLine Logo" className="h-20 w-20 md:h-24 md:w-24 object-contain drop-shadow transition-transform duration-300 transform hover:scale-110" />
         </a>
-        <span className="text-xl font-bold text-gray-800">LifeLine</span>
       </div>
 
       {/* Desktop Navigation */}
@@ -51,13 +50,13 @@ const Navbar = () => {
       </div>
 
       {/* Hamburger Icon */}
-      <div className="md:hidden text-3xl text-gray-800" onClick={() => setMenuOpen(!menuOpen)}>
+      <div className="md:hidden text-3xl text-red-600" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <HiX /> : <HiMenu />}
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="absolute top-16 left-0 w-full bg-white shadow-md z-50 flex flex-col items-start px-6 py-4 space-y-4 md:hidden">
+        <div className="absolute top-16 left-0 w-full bg-white shadow-md z-50 flex flex-col items-start px-2 py-  2 space-y-2 md:hidden">
           {navLinks.map((link) => (
             <a
               key={link.name}

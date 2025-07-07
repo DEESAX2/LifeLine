@@ -1,5 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import Navbar from '../components/Navbar';
+import FAQSection from '../components/FAQSection';
+import BloodTypeCompatibility from '../components/BloodTypeCompatibility';
+import UpcomingDrives from '../components/UpcomingDrives';
+import StoriesSection from '../components/StoriesSection';
+import CalloutSection from '../components/CalloutSection';
+import NewsletterSection from '../components/NewsletterSection';
+import PartnersSection from '../components/PartnersSection';
+import EligibilitySection from '../components/EligibilitySection';
 import Footer from '../components/Footer';
 import heroImg from '../assets/Images/moment4.jpg';
 import howImg from '../assets/Images/moment15.jpg';
@@ -210,6 +218,14 @@ const Home = () => {
         <DonationMoments /> 
         <UrgentRequestSection />
         <HowDonationWorksSection />
+        <FAQSection />
+        <BloodTypeCompatibility />
+        <EligibilitySection />
+        <UpcomingDrives />
+        <StoriesSection />
+        <CalloutSection />
+        <NewsletterSection />
+        <PartnersSection />
         <TestimonialSection /> 
       </main>
 
