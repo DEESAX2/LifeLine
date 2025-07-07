@@ -16,7 +16,7 @@ const HeroSection = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="absolute inset-0 bg-red-800 opacity-30 z-0"></div>
+      <div className="absolute inset-0 bg-red-100 opacity-30 z-0"></div>
 
       <div className="relative z-10 max-w-3xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">Save Lives with LifeLine</h1>
