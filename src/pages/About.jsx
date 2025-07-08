@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import {Users} from "lucide-react";
 import { AlarmCheck } from "lucide-react";
+import lifelinelogo from "../assets/Images/lifelinelogo.jpg";
 
 
 export default function About() {
@@ -12,8 +13,8 @@ export default function About() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         
         <div className="flex items-center gap-2">
-          <span className="text-red-600 text-2xl">❤️</span>
-          <h1 className="text-xl font-bold text-gray-900">LifeLine</h1>
+          <span className="text-red-600 text-2xl"><img src={lifelinelogo} alt="" className="w-14" /></span>
+        
         </div>
 
         <a
@@ -26,7 +27,7 @@ export default function About() {
       </div>
       </header>
 
-        <h1 className="text-4xl font-bold text-black mb-6">About LifeLine</h1>
+        <h1 className="text-4xl font-bold text-black mb-6 mt-4">About LifeLine</h1>
 
         <p className="text-lg mb-8">
           LifeLine is Ghana's premier blood donation platform, connecting voluntary donors with hospitals in urgent need of blood.

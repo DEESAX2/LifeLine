@@ -1,20 +1,20 @@
 import { ArrowLeft } from "lucide-react";
+import lifelinelogo from "../assets/Images/lifelinelogo.jpg";
 
 
 export default function Conatct() {
   
   return (
     <>
-
-     <header className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo Section */}
+     <div className="bg-gradient-to-bl from-white to-red-300">
+       <header className=""> 
+      <div className=" bg-white max-w-5xl mx-auto px-6 py-4 flex justify-between items-center ">
+        
         <div className="flex items-center gap-2">
-          <span className="text-red-600 text-2xl">❤️</span>
+          <span className="text-red-600 text-2xl"><img src={lifelinelogo} alt=""  className="w-16 h-16"/></span>
           <h1 className="text-xl font-bold text-gray-900">LifeLine</h1>
         </div>
 
-        {/* Back to Home Button */}
         <a
           href="/"
           className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-800 hover:bg-gray-100 transition"
@@ -24,8 +24,8 @@ export default function Conatct() {
         </a>
       </div>
 
-      {/* Hero / Intro Text */}
-      <div className="bg-gray-50 py-10 px-4 text-center">
+    
+      <div className=" py-10 px-4 text-center">
         <h2 className="text-3xl font-bold text-gray-900 mb-2">
           Join the LifeLine Network
         </h2>
@@ -35,21 +35,21 @@ export default function Conatct() {
         </p>
       </div>
     </header>
-   <div className="bg-gray-50 min-h-screen py-12 px-6 md:px-16">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-3 gap-8">
+   <div className="min-h-screen py-12 px-6 md:px-16 ">
+      <div className="max-w-7xl mx-auto grid  lg:grid-cols-3 gap-8">
         {/* Left Side: Form */}
         <div className="bg-white p-6 rounded-lg shadow-lg lg:col-span-2">
-          <h2 className="text-2xl font-bold text-blue-600 mb-6 flex items-center gap-2">
+          <h2 className="text-2xl font-bold text-red-600 mb-6 flex items-center gap-2">
             <span className="text-3xl">📋</span> Hospital Partnership Form
           </h2>
 
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="col-span-2">
+          <form className="grid grid-cols- md:grid-cols-1 gap-2">
+            <div className="col-span-1">
               <label className="font-medium">Hospital Name *</label>
               <input
                 type="text"
                 placeholder="Enter your hospital name"
-                className="mt-1 w-full border rounded-lg p-2"
+                className="mt-1 w-full  border rounded-lg p-2"
               />
             </div>
 
@@ -138,6 +138,7 @@ export default function Conatct() {
           </div>
         </div>
       </div>
+    </div>
     </div>
     </>
   )
