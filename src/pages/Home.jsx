@@ -20,28 +20,14 @@ const HeroSection = () => {
       className="relative pt-24 px-6 pb-20 flex flex-col items-center justify-center text-center text-white overflow-hidden min-h-screen"
     >
       {/* Background Video */}
-      <video
-        src={heroVideo}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      />
+      <video src={heroVideo} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover z-0"/>
       {/* Red overlay */}
       <div className="absolute inset-0 bg-red-300 opacity-30 z-10"></div>
-
       <div className="relative z-20 max-w-3xl">
         <h1 className="text-4xl md:text-5xl font-bold mb-6">Save Lives with LifeLine</h1>
-        <p className="text-lg md:text-xl mb-6">
-          Connecting voluntary blood donors to hospitals across Ghana.
-        </p>
+        <p className="text-lg md:text-xl mb-6"> Connecting voluntary blood donors to hospitals across Ghana.</p>
         <div className="flex gap-4 justify-center">
-          <button
-            onClick={() => (window.location.href = '/donate')}
-            className="bg-white text-red-600 px-6 py-3 rounded-md font-semibold hover:bg-red-100 transition duration-300"
-          >
-            Donate Blood Now
+          <button onClick={() => (window.location.href = '/donate')} className="bg-white text-red-600 px-6 py-3 rounded-md font-semibold hover:bg-red-100 transition duration-300">Donate Blood Now
           </button>
         </div>
       </div>
@@ -51,17 +37,17 @@ const HeroSection = () => {
 
 const StatsSection = () => {
   return (
-    <section className="bg-white py-12 px-4 text-center grid grid-cols-1 md:grid-cols-3 gap-6">
+    <section className="bg-white py-18 px-6 text-center grid grid-cols-1 md:grid-cols-3 gap-6">
       <div>
-        <h2 className="text-3xl font-bold text-red-600">500+</h2>
+        <h2 className="text-4xl font-bold text-red-600">500+</h2>
         <p className="mt-2 text-gray-700">Lives Saved</p>
       </div>
       <div>
-        <h2 className="text-3xl font-bold text-blue-600">50+</h2>
+        <h2 className="text-4xl font-bold text-blue-600">50+</h2>
         <p className="mt-2 text-gray-700">Partner Hospitals</p>
       </div>
       <div>
-        <h2 className="text-3xl font-bold text-green-600">1000+</h2>
+        <h2 className="text-4xl font-bold text-green-600">1000+</h2>
         <p className="mt-2 text-gray-700">Active Donors</p>
       </div>
     </section>
@@ -76,7 +62,7 @@ const DonationMoments = () => {
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
-    const speed = 1; // pixels per tick
+    const speed = 1;
     const interval = setInterval(() => {
       container.scrollLeft += speed;
       if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
@@ -95,9 +81,7 @@ const DonationMoments = () => {
   key={num}
   src={new URL(`../assets/Images/moment${num}.jpg`, import.meta.url).href}
   alt={`Moment ${num}`}
-  className="h-60 w-80 object-cover rounded shadow-md flex-shrink-0"
-/>
-
+  className="h-60 w-80 object-cover rounded shadow-md flex-shrink-0"/>
           ))}
         </div>
       </div>

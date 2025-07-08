@@ -37,7 +37,7 @@ const Navbar = () => {
 
       {/* Buttons - Desktop */}
       <div className="hidden md:flex gap-4">
-        <a href="/blood-bank-login">
+        <a href="/login">
           <button className="text-red-600 border border-red-600 px-4 py-2 rounded-md hover:bg-red-50 transition">
             Hospital Login
           </button>
