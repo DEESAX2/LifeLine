@@ -67,7 +67,7 @@ const Messages = () => {
             <li><a href="/admin-dashboard" className="flex items-center gap-2 text-black hover:underline"><LayoutDashboard className="w-5 h-5" /> Dashboard</a></li>
             <li><a href="/donor-history" className="flex items-center gap-2 text-black hover:underline"><Users className="w-5 h-5" /> Donors</a></li>
             <li><a href="/blood-inventory" className="flex items-center gap-2 text-black hover:underline"><Droplet className="w-5 h-5" /> Blood Inventory</a></li>
-            <li><a href="/upcoming-drives" className="flex items-center gap-2 text-black hover:underline"><Calendar className="w-5 h-5" /> Events</a></li>
+            <li><a href="/admin-events" className="flex items-center gap-2 text-black hover:underline"><Calendar className="w-5 h-5" /> Events</a></li>
             <li>
               <a href="/messages" className="flex items-center justify-between text-red-700 font-semibold">
                 <span className="flex items-center gap-2"><Mail className="w-5 h-5" /> Messages</span>

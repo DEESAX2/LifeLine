@@ -86,7 +86,7 @@ const BloodInventory = () => {
             <li><a href="/donor-history" className="flex items-center gap-2 text-black hover:underline"><Users className="w-5 h-5" /> Donors</a></li>
             <li><a href="/blood-inventory" className="flex items-center gap-2 font-semibold text-red-700"><Droplet className="w-5 h-5" /> Blood Inventory</a></li>
             <li><a href="/blood-requests" className="flex items-center gap-2 text-black hover:underline"><PackageCheck className="w-5 h-5" /> Blood Requests</a></li>
-            <li><a href="/upcoming-drives" className="flex items-center gap-2 text-black hover:underline"><CalendarHeart className="w-5 h-5" /> Events</a></li>
+            <li><a href="/admin-events" className="flex items-center gap-2 text-black hover:underline"><CalendarHeart className="w-5 h-5" /> Events</a></li>
             <li><a href="/messages" className="flex items-center gap-2 text-black hover:underline"><Mail className="w-5 h-5" /> Messages</a></li>
             <li><a href="/" className="flex items-center gap-2 text-black hover:underline"><LogOut className="w-5 h-5" /> Logout</a></li>
           </ul>
