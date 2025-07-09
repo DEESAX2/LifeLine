@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import dayjs from 'dayjs'; // for date handling
+import dayjs from 'dayjs';
+import {
+  LayoutDashboard,
+  Users,
+  Droplet,
+  Mail,
+  LogOut,
+  CalendarHeart,
+  PackageCheck
+} from 'lucide-react';
 
 const initialInventory = [
   { id: 1, type: 'A+', units: 25, expiry: '2025-08-01' },
@@ -65,7 +74,7 @@ const BloodInventory = () => {
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
       <nav className="bg-red-600 p-4 text-white flex justify-between items-center">
-        <a href="/admin" className="text-2xl font-nomo">Administrator</a>
+        <a href="/admin" className="text-2xl font-bold">Administrator</a>
         <span>Blood Inventory</span>
       </nav>
 
@@ -73,14 +82,13 @@ const BloodInventory = () => {
         {/* Sidebar */}
         <aside className="bg-red-300 w-64 min-h-screen p-4 text-white">
           <ul className="space-y-4">
-            <li><a href="/admin-dashboard" className="hover:underline text-black">Dashboard</a></li>
-            <li><a href="/donor-history" className="hover:underline text-black">Donors</a></li>
-            <li><a href="/blood-inventory" className="font-semibold hover:underline flex items-center justify-between text-red-700">Blood Inventory</a></li>
-            <li><a href="/blood-requests" className="hover:underline text-black">Blood Requests</a></li>
-            <li><a href="/upcoming-drives" className="hover:underline text-black">Events</a></li>
-            <li><a href="/messages" className="hover:underline text-black">Messages</a></li>
-
-            <li><a href="/" className="hover:underline text-black">Logout</a></li>
+            <li><a href="/admin-dashboard" className="flex items-center gap-2 text-black hover:underline"><LayoutDashboard className="w-5 h-5" /> Dashboard</a></li>
+            <li><a href="/donor-history" className="flex items-center gap-2 text-black hover:underline"><Users className="w-5 h-5" /> Donors</a></li>
+            <li><a href="/blood-inventory" className="flex items-center gap-2 font-semibold text-red-700"><Droplet className="w-5 h-5" /> Blood Inventory</a></li>
+            <li><a href="/blood-requests" className="flex items-center gap-2 text-black hover:underline"><PackageCheck className="w-5 h-5" /> Blood Requests</a></li>
+            <li><a href="/upcoming-drives" className="flex items-center gap-2 text-black hover:underline"><CalendarHeart className="w-5 h-5" /> Events</a></li>
+            <li><a href="/messages" className="flex items-center gap-2 text-black hover:underline"><Mail className="w-5 h-5" /> Messages</a></li>
+            <li><a href="/" className="flex items-center gap-2 text-black hover:underline"><LogOut className="w-5 h-5" /> Logout</a></li>
           </ul>
         </aside>
 

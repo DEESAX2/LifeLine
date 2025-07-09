@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
+import {
+  LayoutDashboard,
+  Users,
+  Droplet,
+  Calendar,
+  Mail,
+  LogOut
+} from 'lucide-react';
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 
-// Simulated admin login state
-const isAdmin = true; // Change to false to simulate unauthorized access
+const isAdmin = true;
 
 const AdminDashboard = () => {
-  // Redirect simulation
   if (!isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -18,7 +24,6 @@ const AdminDashboard = () => {
     { title: 'Pending Approvals', value: 250 },
     { title: 'Approved Hospitals', value: 15 },
     { title: 'Declined Hospital', value: 120 },
-   
   ];
 
   const chartData = [
@@ -35,20 +40,20 @@ const AdminDashboard = () => {
     <div className="min-h-screen flex flex-col">
       {/* Navbar */}
       <nav className="bg-red-600 p-4 text-white flex justify-between items-center">
-        <a href="#" className="text-2xl font-nomo ">Lifeline Admin</a>
+        <a href="/admin-dashboard" className="text-2xl font-bold">Lifeline Admin</a>
         <span>Welcome, Admin</span>
       </nav>
 
       <div className="flex flex-1">
         {/* Sidebar */}
-        <aside className="bg-red-300 w-64 min-h-screen p-4">
+        <aside className="bg-red-300 w-64 min-h-screen p-4 text-white">
           <ul className="space-y-4">
-            <li><a href="/admin-dashboard" className="text-red-600 font-semibold">Dashboard</a></li>
-            <li><a href="/donor-history">Donors</a></li>
-            <li><a href="/blood-inventory">Blood Inventory</a></li>
-            <li><a href="/upcoming-drives">Events</a></li>
-            <li><a href="/messages">Messages</a></li>
-            <li><a href="/">Logout</a></li>
+            <li><a href="/admin-dashboard" className="flex items-center gap-2 text-red-700 font-semibold"><LayoutDashboard className="w-5 h-5" /> Dashboard</a></li>
+            <li><a href="/donor-history" className="flex items-center gap-2 text-black"><Users className="w-5 h-5" /> Donors</a></li>
+            <li><a href="/blood-inventory" className="flex items-center gap-2 text-black"><Droplet className="w-5 h-5" /> Blood Inventory</a></li>
+            <li><a href="/admin-events" className="flex items-center gap-2 text-black"><Calendar className="w-5 h-5" /> Events</a></li>
+            <li><a href="/messages" className="flex items-center gap-2 text-black"><Mail className="w-5 h-5" /> Messages</a></li>
+            <li><a href="/" className="flex items-center gap-2 text-black"><LogOut className="w-5 h-5" /> Logout</a></li>
           </ul>
         </aside>
 
@@ -63,6 +68,7 @@ const AdminDashboard = () => {
               </div>
             ))}
           </div>
+
           {/* Pie Chart */}
           <div className="bg-white p-6 shadow-md rounded-lg">
             <h2 className="text-lg font-semibold mb-4 text-gray-700">Blood Type Distribution</h2>

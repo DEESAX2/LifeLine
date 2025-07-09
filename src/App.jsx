@@ -15,6 +15,8 @@ import Navbar from "./components/Navbar";
 import UpcomingDrives from "./components/UpcomingDrives";
 import Messages from "./components/Messages" 
 import BloodInventory from "./components/BloodInventory";
+import { Toaster } from 'react-hot-toast';
+import AdminEvents from "./components/AdminEvents";
 
 
 const progressRouter = createBrowserRouter([
@@ -36,6 +38,7 @@ const progressRouter = createBrowserRouter([
       { path: "/upcoming-drives", element: <UpcomingDrives /> },
       { path: "/messages", element: <Messages /> },      
       { path: "/blood-inventory", element: <BloodInventory/> },      
+      { path: "/admin-events", element: <AdminEvents/> },      
       
       
       
@@ -52,6 +55,7 @@ const progressRouter = createBrowserRouter([
     
   return (
     <>
+    <Toaster position="top-right"/>
     <RouterProvider router={progressRouter} />
     </>
   )
