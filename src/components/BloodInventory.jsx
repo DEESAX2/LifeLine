@@ -46,7 +46,7 @@ const BloodInventory = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Toaster />
-      <nav className="bg-red-600 p-4 text-white flex justify-between items-center">
+      <nav className="bg-red-500 p-4 text-white flex justify-between items-center">
         <div className="flex items-center gap-4">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="md:hidden">
             <Menu className="w-6 h-6" />
@@ -56,11 +56,11 @@ const BloodInventory = () => {
       </nav>
 
       <div className="flex flex-1 flex-col md:flex-row">
-        <aside className={`bg-red-300 w-full md:w-64 p-4 text-white z-20 ${sidebarOpen ? 'block' : 'hidden'} md:block`}>
-          <ul className="space-y-4">
+        <aside className={`bg-white w-full md:w-64 p-4 text-white z-20 ${sidebarOpen ? 'block' : 'hidden'} md:block`}>
+          <ul className="space-y-15">
             <li><a href="/admin-dashboard" className="flex items-center gap-2 text-black"><LayoutDashboard className="w-5 h-5" /> Dashboard</a></li>
             <li><a href="/donor-history" className="flex items-center gap-2 text-black"><Users className="w-5 h-5" /> Donors</a></li>
-            <li><a href="/blood-inventory" className="flex items-center gap-2 text-red-700 font-semibold"><Droplet className="w-5 h-5" /> Blood Inventory</a></li>
+            <li><a href="/blood-inventory" className="flex items-center gap-2 text-red-500 font-bold"><Droplet className="w-5 h-5" /> Blood Inventory</a></li>
             <li><a href="/admin-events" className="flex items-center gap-2 text-black"><Calendar className="w-5 h-5" /> Events</a></li>
             <li><a href="/messages" className="flex items-center gap-2 text-black"><Mail className="w-5 h-5" /> Messages</a></li>
             <li><a href="/" className="flex items-center gap-2 text-black"><LogOut className="w-5 h-5" /> Logout</a></li>

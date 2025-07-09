@@ -1,53 +1,83 @@
-import React, { useEffect, useState } from 'react';
-import video10 from '../assets/videos/video10.mp4';
-import video5 from '../assets/videos/video5.mp4';
-import video9 from '../assets/videos/video9.mp4'
-import video7 from '../assets/videos/video7.mp4';
-import video8 from '../assets/videos/video8.mp4';
-import video3 from '../assets/videos/video3.mp4';
+import React, { useEffect, useRef, useState } from 'react';
 import hosp1 from '../assets/Images/hosp1.png';
 import hosp2 from '../assets/Images/hosp2.png';
 import hosp3 from '../assets/Images/hosp3.png';
 import hosp4 from '../assets/Images/hosp4.png';
-import hosp7 from '../assets/Images/hosp7.png';
 
-const items = [
-  { id: 1, video: video10, logo: hosp1, name: 'Korle Bu Teaching Hospital' },
-  { id: 2, video: video9, logo: hosp3, name: '37 Military Hospital' },
-  { id: 3, video: video5, logo: hosp2, name: 'Komfo Anokye Hospital' },
-  { id: 4, video: video7, logo: hosp3, name: '37 Military Hospital' },
-  { id: 5, video: video8, logo: hosp4, name: 'UNESCO' },
-  { id: 6, video: video3, logo: hosp7, name: 'Sunyani Teaching Hospital' },
+// Add a name for each logo in the same order
+const logos = [
+  { src: hosp1, name: "Korle Bu Teaching Hospital" },
+  { src: hosp2, name: "37 Military Hospital" },
+  { src: hosp3, name: "Komfo Anokye Teaching Hospital" },
+  { src: hosp4, name: "Cape Coast Teaching Hospital" }
 ];
 
 const PartnerSpotlight = () => {
-  const [current, setCurrent] = useState(0);
+  const [showVideo, setShowVideo] = useState(false);
+  const [logoIndex, setLogoIndex] = useState(0);
+  const sectionRef = useRef(null);
 
+  // Intersection Observer to play video when in view
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setShowVideo(true);
+      },
+      { threshold: 0.4 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Logo carousel logic
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % items.length);
-    }, 8000);
+      setLogoIndex((prev) => (prev + 1) % logos.length);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
-  const { video, logo, name } = items[current];
-
+ // ...existing code...
   return (
-    <section className="relative bg-white-100 text-white mb-4" id="partner-spotlight">
-      <video
-        key={current} 
-        src={video}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="w-full h-100 object-contain"
-      />
-      {/* Overlay */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <img src={logo} alt={name} className="h-20 w-auto mb-3 drop-shadow-lg" />
-        <h3 className="text-2xl text-black font-semibold text-center px-4">{name}</h3>
+    <section
+      className="bg-white text-white mb-12 mt-12 flex flex-col items-center relative"
+      id="partner-spotlight"
+      ref={sectionRef}
+      style={{ minHeight: '360px', width: '100%' }}
+    >
+      {/* Title - now outside the video, as a section header */}
+      {/* <h2 className="text-3xl font-bold text-red-600 z-20 drop-shadow mt-8 mb-4">
+        Partners Spotlight
+      </h2> */}
+      <div className="absolute inset-0 w-full h-full">
+        {showVideo && (
+          <iframe
+            className="w-full h-full rounded-none"
+            src="https://www.youtube.com/embed/cL0VNNnGmQ0?start=32&autoplay=1&mute=1&loop=1&playlist=cL0VNNnGmQ0"
+            title="Partner Spotlight Video"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            style={{ height: '100%', width: '100%' }}
+          />
+        )}
       </div>
+      {/* Logos overlayed on the video */}
+      <div
+        className="absolute bottom-59 left-1/2 transform -translate-x-1/2 flex flex-col items-center bg-white bg-opacity-80 rounded px-4 py-2 shadow"
+        style={{ minHeight: 80, zIndex: 2 }}
+      >
+        <img
+          src={logos[logoIndex].src}
+          alt={`Partner logo ${logoIndex + 1}`}
+          className="h-20 w-auto object-contain transition-opacity duration-500"
+          style={{ maxWidth: 180 }}
+        />
+        <span className="mt-2 text-black font-semibold text-center text-base">
+          {logos[logoIndex].name}
+        </span>
+      </div>
+      {/* Spacer to keep section height */}
+      <div style={{ visibility: 'hidden', height: '660px', width: '100%' }} />
     </section>
   );
 };

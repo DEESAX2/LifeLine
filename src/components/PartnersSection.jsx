@@ -6,8 +6,7 @@ import hosp4 from '../assets/Images/hosp4.png';
 import hosp5 from '../assets/Images/hosp5.png';
 import hosp6 from '../assets/Images/hosp6.png';
 import hosp7 from '../assets/Images/hosp7.png';
-import hosp8 from '../assets/Images/hosp8.png';
-import hosp9 from '../assets/Images/hosp9.png';
+
 
 
 const partners = [
@@ -18,8 +17,7 @@ const partners = [
   { id: 5, img: hosp5, name: 'Ridge Hospital' },
   { id: 6, img: hosp6, name: 'St Joseph' },
   { id: 7, img: hosp7, name: 'St Joseph' },
-  { id: 8, img: hosp8, name: 'St Joseph' },
-  { id: 9, img: hosp9, name: 'St Joseph' },
+
 ];
 
 const PartnersSection = () => (

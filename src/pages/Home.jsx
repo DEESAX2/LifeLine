@@ -63,7 +63,7 @@ const HeroSection = () => {
             pause={1400}
           />
         </h1>
-        <p className="text-lg md:text-xl mb-6"> Connecting voluntary blood donors to hospitals across Ghana.</p>
+        <p className="text-lg md:text-xl mb-6 text-black "> Connecting voluntary blood donors to hospitals across Ghana.</p>
         <div className="flex gap-4 justify-center">
           <button onClick={() => (window.location.href = '/donate')} className="bg-white text-red-600 px-6 py-3 rounded-md font-semibold hover:bg-red-100 transition duration-300">Donate Blood Now
           </button>

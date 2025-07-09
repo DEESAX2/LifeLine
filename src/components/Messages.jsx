@@ -50,26 +50,26 @@ const Messages = () => {
       <Toaster />
 
       {/* Navbar */}
-      <nav className="bg-red-600 p-4 text-white flex justify-between items-center md:justify-between">
+      <nav className="bg-red-500 p-4 text-white flex justify-between items-center md:justify-between">
         <div className="flex items-center gap-4">
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="md:hidden">
             <Menu className="w-6 h-6" />
           </button>
           <a href="/admin-dashboard" className="text-xl font-bold">Admin's Inbox</a>
         </div>
-        <span className="hidden md:block">Messages</span>
+        <span className="hidden md:block font-bold">Messages</span>
       </nav>
 
       <div className="flex flex-1">
         {/* Sidebar */}
-        <aside className={`bg-red-300 w-64 p-4 text-white z-20 md:block ${sidebarOpen ? 'block absolute h-full' : 'hidden'} md:relative`}>
-          <ul className="space-y-4">
-            <li><a href="/admin-dashboard" className="flex items-center gap-2 text-black hover:underline"><LayoutDashboard className="w-5 h-5" /> Dashboard</a></li>
+        <aside className={`bg-white w-64 p-4 text-black z-20 md:block ${sidebarOpen ? 'block absolute h-full' : 'hidden'} md:relative`}>
+          <ul className="space-y-15">
+            <li><a href="/admin-dashboard" className="flex items-center gap-2 text-black hover:underline"><LayoutDashboard className="w-5 h-5 " /> Dashboard</a></li>
             <li><a href="/donor-history" className="flex items-center gap-2 text-black hover:underline"><Users className="w-5 h-5" /> Donors</a></li>
             <li><a href="/blood-inventory" className="flex items-center gap-2 text-black hover:underline"><Droplet className="w-5 h-5" /> Blood Inventory</a></li>
             <li><a href="/admin-events" className="flex items-center gap-2 text-black hover:underline"><Calendar className="w-5 h-5" /> Events</a></li>
             <li>
-              <a href="/messages" className="flex items-center justify-between text-red-700 font-semibold">
+              <a href="/messages" className="flex items-center justify-between text-red-500 font-bold">
                 <span className="flex items-center gap-2"><Mail className="w-5 h-5" /> Messages</span>
                 {unreadCount > 0 && (
                   <span className="bg-yellow-300 text-yellow-900 text-sm font-bold px-2 py-0.5 rounded-full ml-2">{unreadCount}</span>
