@@ -12,7 +12,9 @@ import BloodRequests from "./pages/BloodRequests";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-
+import UpcomingDrives from "./components/UpcomingDrives";
+import Messages from "./components/Messages" 
+import BloodInventory from "./components/BloodInventory";
 
 
 const progressRouter = createBrowserRouter([
@@ -31,6 +33,9 @@ const progressRouter = createBrowserRouter([
       { path: "*", element: <NotFound /> },
       { path: "/footer", element: <Footer /> },
       { path: "/navbar", element: <Navbar /> },
+      { path: "/upcoming-drives", element: <UpcomingDrives /> },
+      { path: "/messages", element: <Messages /> },      
+      { path: "/blood-inventory", element: <BloodInventory/> },      
       
       
       
