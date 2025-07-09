@@ -4,17 +4,20 @@ import video5 from '../assets/videos/video5.mp4';
 import video9 from '../assets/videos/video9.mp4'
 import video7 from '../assets/videos/video7.mp4';
 import video8 from '../assets/videos/video8.mp4';
+import video3 from '../assets/videos/video3.mp4';
 import hosp1 from '../assets/Images/hosp1.png';
 import hosp2 from '../assets/Images/hosp2.png';
 import hosp3 from '../assets/Images/hosp3.png';
 import hosp4 from '../assets/Images/hosp4.png';
+import hosp7 from '../assets/Images/hosp7.png';
 
 const items = [
   { id: 1, video: video10, logo: hosp1, name: 'Korle Bu Teaching Hospital' },
-  { id: 1, video: video9, logo: hosp3, name: '37 Military Hospital' },
-  { id: 2, video: video5, logo: hosp2, name: 'Komfo Anokye Hospital' },
-  { id: 3, video: video7, logo: hosp3, name: '37 Military Hospital' },
-  { id: 4, video: video8, logo: hosp4, name: 'UNESCO' },
+  { id: 2, video: video9, logo: hosp3, name: '37 Military Hospital' },
+  { id: 3, video: video5, logo: hosp2, name: 'Komfo Anokye Hospital' },
+  { id: 4, video: video7, logo: hosp3, name: '37 Military Hospital' },
+  { id: 5, video: video8, logo: hosp4, name: 'UNESCO' },
+  { id: 6, video: video3, logo: hosp7, name: 'Sunyani Teaching Hospital' },
 ];
 
 const PartnerSpotlight = () => {

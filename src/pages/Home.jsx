@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import FAQSection from '../components/FAQSection';
 import BloodTypeCompatibility from '../components/BloodTypeCompatibility';
@@ -13,6 +13,37 @@ import Footer from '../components/Footer';
 import heroVideo from '../assets/videos/video6.mp4';
 import howImg from '../assets/Images/moment15.jpg';
 
+// Typewriter component
+const Typewriter = ({ texts, speed = 80, pause = 1200, className = "" }) => {
+  const [displayed, setDisplayed] = useState("");
+  const [textIdx, setTextIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+
+  useEffect(() => {
+    if (charIdx < texts[textIdx].length) {
+      const timeout = setTimeout(() => {
+        setDisplayed((prev) => prev + texts[textIdx][charIdx]);
+        setCharIdx((prev) => prev + 1);
+      }, speed);
+      return () => clearTimeout(timeout);
+    } else {
+      const timeout = setTimeout(() => {
+        setDisplayed("");
+        setCharIdx(0);
+        setTextIdx((prev) => (prev + 1) % texts.length);
+      }, pause);
+      return () => clearTimeout(timeout);
+    }
+  }, [charIdx, textIdx, texts, speed, pause]);
+
+  return (
+    <span className={className}>
+      {displayed}
+      <span className="animate-pulse">|</span>
+    </span>
+  );
+};
+
 const HeroSection = () => {
   return (
     <section
@@ -24,7 +55,14 @@ const HeroSection = () => {
       {/* Red overlay */}
       <div className="absolute inset-0 bg-red-300 opacity-30 z-10"></div>
       <div className="relative z-20 max-w-3xl">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Save Lives with LifeLine</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-red-600">
+          <Typewriter
+            texts={[ "Save Lives with LifeLine", "Tap a vein, save a life"
+      , "Donate Blood, Share Hope", "Your Blood Can Save Lives"]}
+            speed={80}
+            pause={1400}
+          />
+        </h1>
         <p className="text-lg md:text-xl mb-6"> Connecting voluntary blood donors to hospitals across Ghana.</p>
         <div className="flex gap-4 justify-center">
           <button onClick={() => (window.location.href = '/donate')} className="bg-white text-red-600 px-6 py-3 rounded-md font-semibold hover:bg-red-100 transition duration-300">Donate Blood Now
@@ -96,7 +134,11 @@ const UrgentRequestSection = () => {
         <div className="text-3xl font-semibold mb-4 flex justify-center items-center gap-2">
           <span>⚠</span> <span>Urgent Need: O- Blood</span>
         </div>
-        <p className="mb-6">Hospital needs O- blood for emergency surgeries</p>
+        <p className="mb-6">
+          
+          
+          
+          needs O- blood for emergency surgeries</p>
         <button
           onClick={() => (window.location.href = '/requests')}
           className="bg-white text-red-600 px-6 py-2 rounded-md font-semibold hover:bg-red-100 transition duration-300"

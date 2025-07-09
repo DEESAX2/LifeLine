@@ -67,7 +67,7 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
-          <a href="/blood-bank-login" onClick={() => setMenuOpen(false)}>
+          <a href="/login" onClick={() => setMenuOpen(false)}>
             <button className="w-full text-red-600 border border-red-600 px-4 py-2 rounded-md hover:bg-red-50 transition">
               Hospital Login
             </button>

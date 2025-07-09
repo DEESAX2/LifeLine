@@ -26,9 +26,11 @@ const AdminEvents = () => {
       return;
     }
     const id = events.length + 1;
-    setEvents([{ id, ...newEvent }, ...events]);
+    setEvents(prev => {
+      toast.success('Event added');
+      return [{ id, ...newEvent }, ...prev];
+    });
     setNewEvent({ title: '', location: '', date: '' });
-    toast.success('Event added');
   };
 
   const startEdit = (event) => {
@@ -37,14 +39,18 @@ const AdminEvents = () => {
   };
 
   const saveEdit = (id) => {
-    setEvents(events.map(ev => ev.id === id ? { ...ev, ...editData } : ev));
+    setEvents(prev => {
+      toast.success('Event updated');
+      return prev.map(ev => ev.id === id ? { ...ev, ...editData } : ev);
+    });
     setEditingId(null);
-    toast.success('Event updated');
   };
 
   const deleteEvent = (id) => {
-    setEvents(events.filter(ev => ev.id !== id));
-    toast.success('Event deleted');
+    setEvents(prev => {
+      toast.success('Event deleted');
+      return prev.filter(ev => ev.id !== id);
+    });
   };
 
   const sortEvents = (data) => {
@@ -82,9 +88,9 @@ const AdminEvents = () => {
         <span className="hidden md:block">Manage Events</span>
       </nav>
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 flex-col md:flex-row">
         {/* Sidebar */}
-        <aside className={`bg-red-300 w-64 p-4 text-white z-20 md:block ${sidebarOpen ? 'block absolute h-full' : 'hidden'} md:relative`}>
+        <aside className={`bg-red-300 w-full md:w-64 p-4 text-white z-20 ${sidebarOpen ? 'block' : 'hidden'} md:block md:relative`}>
           <ul className="space-y-4">
             <li><a href="/admin-dashboard" className="flex items-center gap-2 text-black hover:underline"><LayoutDashboard className="w-5 h-5" /> Dashboard</a></li>
             <li><a href="/donor-history" className="flex items-center gap-2 text-black hover:underline"><Users className="w-5 h-5" /> Donors</a></li>
@@ -96,7 +102,7 @@ const AdminEvents = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6 bg-red-100">
+        <main className="flex-1 p-4 md:p-6 bg-red-100">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Upcoming Events</h2>
 
           {/* Create New Event */}
@@ -124,7 +130,7 @@ const AdminEvents = () => {
                 className="px-3 py-2 border rounded"
               />
             </div>
-            <button onClick={handleAddEvent} className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Add Event</button>
+            <button onClick={handleAddEvent} className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 w-full md:w-auto">Add Event</button>
           </div>
 
           {/* Search and Sort */}
@@ -139,7 +145,7 @@ const AdminEvents = () => {
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="px-4 py-2 rounded border border-gray-300"
+              className="w-full md:w-auto px-4 py-2 rounded border border-gray-300"
             >
               <option value="">Sort By</option>
               <option value="date-asc">Date (Oldest First)</option>
@@ -176,7 +182,7 @@ const AdminEvents = () => {
                         onChange={(e) => setEditData({ ...editData, date: e.target.value })}
                         className="w-full mb-2 px-3 py-2 border rounded"
                       />
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2">
                         <button onClick={() => saveEdit(event.id)} className="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700">Save</button>
                         <button onClick={() => setEditingId(null)} className="bg-gray-500 text-white px-4 py-1 rounded hover:bg-gray-600">Cancel</button>
                       </div>
@@ -186,7 +192,7 @@ const AdminEvents = () => {
                       <h3 className="text-lg font-semibold">{event.title}</h3>
                       <p className="text-sm text-gray-600">📍 {event.location}</p>
                       <p className="text-sm text-gray-600">🗓️ {event.date}</p>
-                      <div className="mt-2 flex gap-2">
+                      <div className="mt-2 flex flex-col sm:flex-row gap-2">
                         <button onClick={() => startEdit(event)} className="flex items-center gap-1 px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"><Pencil className="w-4 h-4" /> Edit</button>
                         <button onClick={() => deleteEvent(event.id)} className="flex items-center gap-1 px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"><Trash className="w-4 h-4" /> Delete</button>
                       </div>

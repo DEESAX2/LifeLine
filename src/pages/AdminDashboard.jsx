@@ -5,13 +5,17 @@ import {
   Droplet,
   Calendar,
   Mail,
-  LogOut
+  LogOut,
+  Menu
 } from 'lucide-react';
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
+import toast, { Toaster } from 'react-hot-toast';
 
 const isAdmin = true;
 
 const AdminDashboard = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   if (!isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -38,18 +42,25 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <Toaster />
+
       {/* Navbar */}
-      <nav className="bg-red-600 p-4 text-white flex justify-between items-center">
-        <a href="/admin-dashboard" className="text-2xl font-bold">Lifeline Admin</a>
-        <span>Welcome, Admin</span>
+      <nav className="bg-red-500 p-4 text-white flex justify-between items-center">
+        <div className="flex items-center gap-4">
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="md:hidden">
+            <Menu className="w-6 h-6" />
+          </button>
+          <a href="/admin-dashboard" className="text-2xl font-nomo">Admin Dashboard</a>
+        </div>
+        <span className="hidden md:block">Welcome, Admin</span>
       </nav>
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <aside className="bg-red-300 w-64 min-h-screen p-4 text-white">
+        <aside className={`bg-white w-64 p-4 text-white md:block z-20 ${sidebarOpen ? 'block absolute h-full' : 'hidden'} md:relative`}>
           <ul className="space-y-4">
-            <li><a href="/admin-dashboard" className="flex items-center gap-2 text-red-700 font-semibold"><LayoutDashboard className="w-5 h-5" /> Dashboard</a></li>
-            <li><a href="/donor-history" className="flex items-center gap-2 text-black"><Users className="w-5 h-5" /> Donors</a></li>
+            <li><a href="/admin-dashboard" className="flex items-center gap-2 text-red-500 font-semibold mt-8"><LayoutDashboard className="w-5 h-5" /> Dashboard</a></li>
+            <li><a href="/donor-history" className="flex items-center gap-2 text-black "><Users className="w-5 h-5" /> Donors</a></li>
             <li><a href="/blood-inventory" className="flex items-center gap-2 text-black"><Droplet className="w-5 h-5" /> Blood Inventory</a></li>
             <li><a href="/admin-events" className="flex items-center gap-2 text-black"><Calendar className="w-5 h-5" /> Events</a></li>
             <li><a href="/messages" className="flex items-center gap-2 text-black"><Mail className="w-5 h-5" /> Messages</a></li>
@@ -58,9 +69,9 @@ const AdminDashboard = () => {
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 p-6 bg-red-100">
+        <main className="flex-1 p-6 bg-red-100 overflow-y-auto">
           {/* Summary Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
             {cards.map((card, idx) => (
               <div key={idx} className="bg-white p-6 shadow-md rounded-lg text-center">
                 <h3 className="text-gray-600">{card.title}</h3>
@@ -72,23 +83,25 @@ const AdminDashboard = () => {
           {/* Pie Chart */}
           <div className="bg-white p-6 shadow-md rounded-lg">
             <h2 className="text-lg font-semibold mb-4 text-gray-700">Blood Type Distribution</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={chartData}
-                  dataKey="value"
-                  nameKey="name"
-                  outerRadius={100}
-                  fill="#8884d8"
-                  label
-                >
-                  {chartData.map((entry, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={chartData}
+                    dataKey="value"
+                    nameKey="name"
+                    outerRadius={100}
+                    fill="#8884d8"
+                    label
+                  >
+                    {chartData.map((entry, index) => (
+                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </main>
       </div>
