@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import hosp1 from '../assets/Images/hosp1.png';
 import hosp2 from '../assets/Images/hosp2.png';
 import hosp3 from '../assets/Images/hosp3.png';
@@ -20,10 +21,12 @@ const partners = [
 
 ];
 
-const PartnersSection = () => (
+const PartnersSection = () => {
+  const { t } = useTranslation();
+  return (
   <section className="bg-gray-100 py-12 px-4 " id="partners">
     <div className="max-w-6xl mx-auto text-center">
-      <h2 className="text-3xl font-bold text-red-600 mb-8">Partner Hospitals & Sponsors</h2>
+      <h2 className="text-3xl font-bold text-red-600 mb-8">{t('partnerHospitalsSponsors')}</h2>
       <div className="flex flex-wrap justify-center gap-8 items-center">
         {partners.map((p) => (
           <img key={p.id} src={p.img} alt={p.name} className="h-24 transition" />
@@ -32,5 +35,6 @@ const PartnersSection = () => (
     </div>
   </section>
 );
+};
 
 export default PartnersSection;

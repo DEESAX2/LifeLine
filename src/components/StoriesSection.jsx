@@ -1,30 +1,34 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import video1 from '../assets/videos/video1.mp4';
 import video2 from '../assets/videos/video2.mp4';
 import video3 from '../assets/videos/video3.mp4';
 
-const stories = [
+// base stories with translation keys
+const baseStories = [
   {
     id: 1,
     video: video1,
-    title: 'Michael’s Lifesaving Gift',
-    text: 'Michael donated blood for the first time last year; his pint helped a child undergoing surgery.'
+    title: 'story1Title',
+    text: 'story1Text'
   },
   {
     id: 2,
     video: video2,
-    title: 'Eliana’s Recieving Blood from her Doctor',
-    text: '"Eliana feels better ,after a stranger saved her life",Eliana’s mum'
+    title: 'story2Title',
+    text: 'story2Text'
   },
   {
     id: 3,
     video: video3,
-    title: 'Survivor’s Thank-You',
-    text: 'After a car accident, Dolly received 4 units of blood. “Strangers saved my life,” she says.'
+    title: 'story3Title',
+    text: 'story3Text'
   }
 ];
 
-const StoryCard = ({ s, onOpen }) => (
+const StoryCard = ({ s, onOpen }) => {
+  const { t } = useTranslation();
+  return (
   <button
     type="button"
     onClick={() => onOpen(s)}
@@ -40,13 +44,16 @@ const StoryCard = ({ s, onOpen }) => (
       onMouseOut={(e) => e.target.pause()}
     />
     <div className="p-4 text-left">
-      <h3 className="font-semibold text-red-600 mb-2">{s.title}</h3>
-      <p className="text-gray-700 text-sm">{s.text}</p>
+      <h3 className="font-semibold text-red-600 mb-2">{t(s.title)}</h3>
+      <p className="text-gray-700 text-sm">{t(s.text)}</p>
     </div>
   </button>
-);
+  );
+};
 
 const StoriesSection = () => {
+  const { t } = useTranslation();
+  const stories = baseStories;
   const [active, setActive] = useState(null);
 
   const close = () => setActive(null);
@@ -54,7 +61,7 @@ const StoriesSection = () => {
   return (
     <section className="bg-white py-12 px-4" id="stories">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">Donor & Recipient Stories</h2>
+        <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">{t('donorRecipientStories')}</h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {stories.map((s) => (
             <StoryCard key={s.id} s={s} onOpen={setActive} />

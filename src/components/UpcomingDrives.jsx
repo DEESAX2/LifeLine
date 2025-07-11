@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+// Convert raw events saved by AdminEvents to the shape required here
+const normalizeDrives = (data) => data.map((d, idx) => ({
+  id: d.id || idx + 1,
+  date: d.date,
+  city: d.city || d.location || d.title || 'Unknown',
+  venue: d.venue || d.location || '-',
+  bloodTypes: d.bloodTypes || 'All',
+  map: d.map || '#'
+}));
+import { useTranslation } from 'react-i18next';
 
 
-const drives = [
+const seedDrives = [
   {
     id: 1,
     date: '2025-07-12',
@@ -28,28 +39,53 @@ const drives = [
   }
 ];
 
-const DriveCard = ({ drive }) => (
+const DriveCard = ({ drive }) => {
+  const { t } = useTranslation();
+  return (
   <div className="bg-white rounded shadow p-6 flex flex-col gap-2">
     <div className="text-sm text-gray-500">{new Date(drive.date).toLocaleDateString()}</div>
     <h3 className="text-xl font-semibold text-red-600">{drive.city}</h3>
     <p className="text-gray-800">{drive.venue}</p>
-    <p className="text-gray-600 text-sm">Needed: {drive.bloodTypes}</p>
+    <p className="text-gray-600 text-sm">{t('needed')}: {drive.bloodTypes}</p>
     <a
       href={drive.map}
       target="_blank"
       rel="noopener noreferrer"
       className="mt-auto inline-block bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
     >
-      View Map
+      {t('viewMap')}
     </a>
   </div>
-);
+  );
+};
 
 const UpcomingDrives = () => {
+  const { t } = useTranslation();
+  const [drives, setDrives] = useState(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('drives'));
+      return Array.isArray(saved) && saved.length ? normalizeDrives(saved) : seedDrives;
+    } catch {
+      return seedDrives;
+    }
+  });
+  // Listen for storage changes (when AdminEvents is open in another tab)
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === 'drives') {
+        try {
+          const data = JSON.parse(e.newValue);
+          if (Array.isArray(data)) setDrives(normalizeDrives(data));
+        } catch {}
+      }
+    };
+    window.addEventListener('storage', handler);
+    return () => window.removeEventListener('storage', handler);
+  }, []);
   return (
     <section className="bg-gray-100 py-12 px-4" id="drives">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">Upcoming Blood Drives</h2>
+        <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">{t('upcomingBloodDrives')}</h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {drives.map((d) => (
             <DriveCard key={d.id} drive={d} />

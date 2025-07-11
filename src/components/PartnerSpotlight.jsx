@@ -22,6 +22,7 @@ const PartnerSpotlight = () => {
     const observer = new window.IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) setShowVideo(true);
+
       },
       { threshold: 0.4 }
     );

@@ -1,42 +1,45 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 
+// translation keys instead of hard-coded strings
 const faqItems = [
   {
-    q: 'Is donating blood safe?',
-    a: 'Yes. Sterile, single-use needles are used for each donor, eliminating any risk of infection.'
+    q: 'faqQ1',
+    a: 'faqA1'
   },
   {
-    q: 'How often can I donate?',
-    a: 'Whole blood donors can donate every 8 weeks (56 days). Platelet or plasma intervals differ.'
+    q: 'faqQ2',
+    a: 'faqA2'
   },
   {
-    q: 'Will donating make me weak?',
-    a: "Most donors feel fine. Your body replaces the lost fluid within 24 hours and red cells within weeks."
+    q: 'faqQ3',
+    a: 'faqA3'
   },
   {
-    q: 'Can I donate if I have a tattoo?',
-    a: 'If your tattoo was done at a licensed facility using sterile equipment, you can donate after 3 months.'
+    q: 'faqQ4',
+    a: 'faqA4'
   },
   {
-    q: 'How long does the donation take?',
-    a: 'The actual blood draw is 8-10 minutes; the full visit takes about an hour including screening and rest.'
+    q: 'faqQ5',
+    a: 'faqA5'
   },
   {
-    q: 'What if I have traveled recently?',
-    a: 'Some regions with malaria or other risks may defer you temporarily. Screening staff will advise.'
+    q: 'faqQ6',
+    a: 'faqA6'
   },
   {
-    q: 'Do I need to know my blood type first?',
-    a: 'No. We will type your blood after donation and let you know the result.'
+    q: 'faqQ7',
+    a: 'faqA7'
   },
   {
-    q: 'Can I donate if I take medication?',
-    a: 'Most common medications are fine. Bring a list; staff will confirm your eligibility.'
+    q: 'faqQ8',
+    a: 'faqA8'
   }
 ];
 
 const Question = ({ q, a, index, openIndex, setOpenIndex }) => {
+  const { t } = useTranslation();
   const isOpen = index === openIndex;
   return (
     <div className="border-b border-gray-200">
@@ -44,10 +47,10 @@ const Question = ({ q, a, index, openIndex, setOpenIndex }) => {
         className="w-full flex justify-between items-center py-4 text-left text-gray-800 focus:outline-none"
         onClick={() => setOpenIndex(isOpen ? null : index)}
       >
-        <span className="font-medium">{q}</span>
+        <span className="font-medium">{t(q)}</span>
         <span className="text-red-600 text-xl font-bold">{isOpen ? '-' : '+'}</span>
       </button>
-      {isOpen && <p className="pb-4 text-gray-700">{a}</p>}
+      {isOpen && <p className="pb-4 text-gray-700">{t(a)}</p>}
     </div>
   );
 };
