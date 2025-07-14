@@ -43,10 +43,10 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-white shadow-md z-40 flex flex-col items-start px-4 py-4 space-y-3 md:hidden">
-          <NavButton icon={<HomeIcon className="w-4 h-4" />} text="Back to Home" fullWidth />
-          <NavButton icon={<Clock className="w-4 h-4" />} text="Donor History" bg="bg-[#15803D] text-white" fullWidth />
-          <NavButton icon={<PlusIcon className="w-4 h-4" />} text="New Blood Request" bg="bg-red-700 text-white" fullWidth />
-          <NavButton icon={<LogOutIcon className="w-4 h-4" />} text="Logout" fullWidth />
+         <Link to={"/"}> <NavButton icon={<HomeIcon className="w-4 h-4" />} text="Back to Home" fullWidth /></Link>
+          <Link to={"/donor-history"}> <NavButton icon={<Clock className="w-4 h-4" />} text="Donor History" bg="bg-[#15803D] text-white" fullWidth /></Link> 
+          <NavButton icon={<PlusIcon className="w-4 h-4" />} text="New Blood Request" bg="bg-red-700 text-white" fullWidth onClick={() =>setShowModal(true)} />
+          <Link to={"/"}><NavButton icon={<LogOutIcon className="w-4 h-4" />} text="Logout" fullWidth /> </Link>
         </div>
       )}
 
