@@ -40,19 +40,19 @@ const DonationForm = () => {
         onSubmit={handleSubmit}
         className="bg-white border rounded-xl p-6 shadow space-y-4"
       >
-        <h3 className="text-lg font-semibold text-red-600 flex items-center gap-2">
-          📅 Donation Appointment Form
+        <h3 className="text-lg font-semibold text-red-600 flex items-center gap-2 justify-center">
+          Donation Appointment Form
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input name="fullName" value={formData.fullName} onChange={handleChange} required placeholder="Full Name *" className="input" />
-          <input name="email" value={formData.email} onChange={handleChange} required placeholder="Email Address *" type="email" className="input" />
-          <input name="phone" value={formData.phone} onChange={handleChange} required placeholder="Phone Number *" className="input" />
+          <input name="fullName" value={formData.fullName} onChange={handleChange} required placeholder="Full Name" className="input" />
+          <input name="email" value={formData.email} onChange={handleChange} required placeholder="Email Address" type="email" className="input" />
+          <input name="phone" value={formData.phone} onChange={handleChange} required placeholder="Phone Number" className="input" />
           <select name="bloodType" value={formData.bloodType} onChange={handleChange} required className="input">
             <option value="">Select blood type</option>
             {bloodTypes.map(bt => <option key={bt} value={bt}>{bt}</option>)}
           </select>
-          <input name="age" value={formData.age} onChange={handleChange} placeholder="Age *" type="number" required className="input" />
+          <input name="age" value={formData.age} onChange={handleChange} placeholder="Age" type="number" required className="input" />
           <select name="hospital" value={formData.hospital} onChange={handleChange} required className="input">
             <option value="">Select a hospital</option>
             {hospitals.map(h => <option key={h} value={h}>{h}</option>)}

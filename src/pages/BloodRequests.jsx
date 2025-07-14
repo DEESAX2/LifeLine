@@ -22,26 +22,6 @@ const bloodRequests = [
     units: 3,
     description: 'Multiple trauma patients from road accident',
   },
-  {
-    hospital: '37 Military Hospital',
-    location: 'Accra',
-    time: '6 hours ago',
-    urgency: 'medium',
-    urgencyColor: 'bg-yellow-400',
-    bloodType: 'A+',
-    units: 6,
-    description: 'Multiple trauma patients from road accident',
-  },
-  {
-    hospital: 'Tamale Teaching Hospital',
-    location: 'Tamale',
-    time: '8 hours ago',
-    urgency: 'High',
-    urgencyColor: 'bg-red-500',
-    bloodType: 'A+',
-    units: 3,
-    description: 'Multiple trauma patients from road accident',
-  },
 ];
 
 const BloodRequests = () => {
