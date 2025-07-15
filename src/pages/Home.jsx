@@ -356,37 +356,37 @@ const TestimonialSection = () => {
     <section ref={sectionRef} className="bg-white py-12 px-4 text-center">
       <h2 className="text-3xl font-bold text-red-600 mb-8">{t('whatDonorsAreSaying')}</h2>
       <div className={`max-w-4xl mx-auto grid gap-8 md:grid-cols-3 transform transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-        <div className="bg-gray-50 p-6 rounded shadow">
+        <div className="bg-gray-100 p-6 rounded shadow">
           <p className="text-gray-700 italic">
             “{t('testimonialQuote1')}”
           </p>
           <p className="mt-4 font-semibold text-red-500">—{t('testimonialAuthor1')}</p>
         </div>
-        <div className="bg-gray-50 p-6 rounded shadow">
+        <div className="bg-gray-100 p-6 rounded shadow">
           <p className="text-gray-700 italic">
             “{t('testimonialQuote2')}”
           </p>
           <p className="mt-4 font-semibold text-red-500">—{t('testimonialAuthor2')}</p>
         </div>
-        <div className="bg-gray-50 p-6 rounded shadow">
+        <div className="bg-gray-100 p-6 rounded shadow">
           <p className="text-gray-700 italic">
             “{t('testimonialQuote3')}”
           </p>
           <p className="mt-4 font-semibold text-red-500">—{t('testimonialAuthor3')}</p>
         </div>
-        <div className="bg-gray-50 p-6 rounded shadow">
+        <div className="bg-gray-100 p-6 rounded shadow">
           <p className="text-gray-700 italic">
             “{t('testimonialQuote3')}”
           </p>
           <p className="mt-4 font-semibold text-red-500">—{t('testimonialAuthor4')}</p>
         </div>
-        <div className="bg-gray-50 p-6 rounded shadow">
+        <div className="bg-gray-100 p-6 rounded shadow">
           <p className="text-gray-700 italic">
             “{t('testimonialQuote3')}”
           </p>
           <p className="mt-4 font-semibold text-red-500">—{t('testimonialAuthor5')}</p>
         </div>
-        <div className="bg-gray-50 p-6 rounded shadow">
+        <div className="bg-gray-100 p-6 rounded shadow">
           <p className="text-gray-700 italic">
             “{t('testimonialQuote3')}”
           </p>

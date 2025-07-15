@@ -19,10 +19,10 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en',
-    fallbackLng: 'en',
+    lng: localStorage.getItem('lng') || 'en',
+    fallbackLng: localStorage.getItem('lng') || 'en',
     interpolation: {
-      escapeValue: false, // react already safes from xss
+      escapeValue: false,
     },
   });
 

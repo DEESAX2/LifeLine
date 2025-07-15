@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import DonorFormNbar from '../components/DonorFormNbar';
+import { useTranslation } from 'react-i18next';
 
 const DonationForm = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -87,11 +88,11 @@ const DonationForm = () => {
 
   return (
     <>
-      <DonorFormNbar />
+      <a href="/" className="fixed top-4 left-4 text-red-600 text-6xl font-bold">&larr;</a>
       <section className="max-w-5xl mx-auto px-6 py-12 min-h-screen bg-lightblue text-gray-800 pt-24">
-        <h2 className="text-4xl font-bold text-center mb-3">Schedule Your Blood Donation</h2>
+        <h2 className="text-4xl font-bold text-center mb-3">{t('scheduleDonationHeading')}</h2>
         <p className="text-center text-gray-600 mb-4 text-lg">
-          Thank you for choosing to save lives. Please fill out the form below to schedule your donation appointment.
+          {t('scheduleDonationParagraph')}
         </p>
 
         <form
@@ -99,36 +100,36 @@ const DonationForm = () => {
           className="bg-gray-100 border-black rounded p-10 shadow space-y-6 w-full"
         >
           <h3 className="text-lg font-semibold text-red-600 flex items-center gap-2 justify-center">
-            Donation Appointment Form
+            {t('donationAppointmentForm')}
           </h3>
 
           {error && <p className="text-red-600 text-center font-semibold">{error}</p>}
           {success && <p className="text-green-600 text-center font-semibold">{success}</p>}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input name="fullName" value={formData.fullName} onChange={handleChange} required placeholder="Full Name" className="input" />
-            <input name="email" value={formData.email} onChange={handleChange} required placeholder="Email Address" type="email" className="input" />
-            <input name="phone" value={formData.phone} onChange={handleChange} required placeholder="Phone Number" className="input" />
+            <input name="fullName" value={formData.fullName} onChange={handleChange} required placeholder={t('fullNamePlaceholder')} className="input" />
+            <input name="email" value={formData.email} onChange={handleChange} required placeholder={t('emailAddressPlaceholder')} type="email" className="input" />
+            <input name="phone" value={formData.phone} onChange={handleChange} required placeholder={t('phoneNumberPlaceholder')} className="input" />
             <select name="bloodType" value={formData.bloodType} onChange={handleChange} required className="input">
-              <option value="">Select blood type</option>
+              <option value="">{t('selectBloodType')}</option>
               {bloodTypes.map(bt => <option key={bt} value={bt}>{bt}</option>)}
             </select>
-            <input name="age" value={formData.age} onChange={handleChange} placeholder="Age" type="number" required className="input" />
+            <input name="age" value={formData.age} onChange={handleChange} placeholder={t('agePlaceholder')} type="number" required className="input" />
             <select name="hospital" value={formData.hospital} onChange={handleChange} required className="input">
-              <option value="">Select a hospital</option>
+              <option value="">{t('selectHospital')}</option>
               {hospitals.map(h => <option key={h} value={h}>{h}</option>)}
             </select>
-            <input name="appointmentDate" value={formData.appointmentDate} onChange={handleChange} type="date" className="input" placeholder="Preferred Date" />
+            <input name="appointmentDate" value={formData.appointmentDate} onChange={handleChange} type="date" className="input" placeholder={t('preferredDatePlaceholder')} />
           </div>
 
           <div className="bg-blue-50 border border-blue-200 text-sm text-gray-700 p-4 rounded-md space-y-1">
-            <p><strong>Before You Donate:</strong></p>
+            <p><strong>{t('beforeYouDonate')}</strong></p>
             <ul className="list-disc pl-5">
-              <li>Eat a healthy meal 2 hours before donating</li>
-              <li>Drink plenty of water and avoid alcohol</li>
-              <li>Get a good night's sleep</li>
-              <li>Bring a valid ID</li>
-              <li>Wear comfortable clothing with sleeves that roll up easily</li>
+              <li>{t('bulletEat')}</li>
+              <li>{t('bulletDrink')}</li>
+              <li>{t('bulletSleep')}</li>
+              <li>{t('bulletID')}</li>
+              <li>{t('bulletClothing')}</li>
             </ul>
           </div>
 
@@ -139,7 +140,7 @@ const DonationForm = () => {
             }`}
             disabled={loading}
           >
-            {loading ? 'Scheduling...' : 'Schedule Donation Appointment'}
+            {loading ? t('scheduling') : t('scheduleDonationButton')}
           </button>
         </form>
       </section>

@@ -80,7 +80,7 @@ const FAQSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-gray-50 py-12 px-4" id="faq">
+    <section ref={sectionRef} className="bg-gray-100 py-12 px-4" id="faq">
       <div className={`max-w-4xl mx-auto transform transition-all duration-1000 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
         <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">F.A.Q</h2>
         {faqItems.map((item, i) => (
