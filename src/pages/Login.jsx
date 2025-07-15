@@ -1,13 +1,29 @@
 import { Link } from "react-router";
 import blood from "../assets/Images/blood.png";
+import { apiClient } from '../api/client';
+import { useNavigate } from 'react-router';
 
 
 export default function Login() {
-  
+  const navigate = useNavigate();
+    const loginHospital = async (data) => {
+        try {
+            const response = await apiClient.post("/auth/login", data, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            console.log(response);
+            localStorage.setItem("ACCESS_TOKEN", response.data.data.accessToken);
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
   return (
     <>
-    <div className="min-h-screen flex  items-start md:items-start  justify-center bg-gradient-to-b from-gray-300 to-red-50">
+    <div className="min-h-screen flex  items-start md:items-start  justify-center bg-red-300">
       <div className="bg-white  shadow-2xl  h-130 rounded-lg p-4  sm:p-4 w-full max-w-sm sm:max-w-md md:max-w-lg text-center mt-4  md:mt-10 ">
       
         <div className="flex justify-center mb-4 space-x-2">
@@ -18,7 +34,7 @@ export default function Login() {
         <h2 className="text-2xl font-bold mb-6">Blood Bank Staff Login</h2>
        </div>
     
-        <form className="space-y-4 ">
+        <form action={loginHospital} className="space-y-4 ">
           <p className=" flex justify-items-start font-bold mb-0" >Email</p>
           <input
             type="email"
