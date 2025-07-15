@@ -10,7 +10,7 @@ import PartnersSection from '../components/PartnersSection';
 import PartnerSpotlight from '../components/PartnerSpotlight';
 import EligibilitySection from '../components/EligibilitySection';
 import Footer from '../components/Footer';
-import heroVideo0 from '../assets/videos/video1.mp4';
+import heroVideo3 from '../assets/videos/video3.mp4';
 import heroVideo1 from '../assets/videos/video6.mp4';
 import heroVideo2 from '../assets/videos/video10.mp4';
 import howImg from '../assets/Images/moment15.jpg';
@@ -49,7 +49,7 @@ const Typewriter = ({ texts, speed = 80, pause = 1200, className = "" }) => {
 
 const HeroSection = () => {
   const { t } = useTranslation();
-  const videos = [heroVideo0, heroVideo1, heroVideo2];
+  const videos = [heroVideo1, heroVideo2, heroVideo3];
   const [videoIdx, setVideoIdx] = useState(0);
   const videoRef = useRef(null);
 
@@ -112,29 +112,107 @@ const HeroSection = () => {
 
 const StatsSection = () => {
   const { t } = useTranslation();
+  const sectionRef = React.useRef(null);
+  const [visible, setVisible] = React.useState(false);
+  const [counts, setCounts] = React.useState({ lives: 0, hospitals: 0, donors: 0 });
+
+  // targets for the counts
+  const targets = { lives: 500, hospitals: 50, donors: 1000 };
+
+  // observe visibility
+  React.useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.3 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // animate numbers when visible
+  React.useEffect(() => {
+    if (!visible) return;
+    const stepTime = 20; // ms per increment
+    const increments = {
+      lives: Math.ceil(targets.lives / 100),
+      hospitals: Math.ceil(targets.hospitals / 100),
+      donors: Math.ceil(targets.donors / 100),
+    };
+    const interval = setInterval(() => {
+      setCounts(prev => {
+        const next = { ...prev };
+        let done = true;
+        for (const key of Object.keys(targets)) {
+          if (prev[key] < targets[key]) {
+            next[key] = Math.min(prev[key] + increments[key], targets[key]);
+            done = false;
+          }
+        }
+        if (done) clearInterval(interval);
+        return next;
+      });
+    }, stepTime);
+    return () => clearInterval(interval);
+  }, [visible]);
+
   return (
-    <section className="bg-white py-18 px-6 text-center grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div>
-        <h2 className="text-4xl font-bold text-red-600">500+</h2>
-        <p className="mt-2 text-gray-700">{t('livesSaved')}</p>
-      </div>
-      <div>
-        <h2 className="text-4xl font-bold text-blue-600">50+</h2>
-        <p className="mt-2 text-gray-700">{t('partnerHospitals')}</p>
-      </div>
-      <div>
-        <h2 className="text-4xl font-bold text-green-600">1000+</h2>
-        <p className="mt-2 text-gray-700">{t('activeDonors')}</p>
+    <section
+      ref={sectionRef}
+      className="bg-gradient-to-r from-red-50 via-white to-blue-50 py-20 px-6 text-center"
+    >
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="flex flex-col items-center transform transition-all duration-700 ease-out" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(24px)' }}>
+          <h2 className="text-5xl md:text-6xl font-bold text-red-600 drop-shadow-lg">
+            {counts.lives}+
+          </h2>
+          <p className="mt-3 text-gray-800 text-lg font-medium">
+            {t('livesSaved')}
+          </p>
+        </div>
+        <div className="flex flex-col items-center transform transition-all duration-700 ease-out delay-100" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(24px)' }}>
+          <h2 className="text-5xl md:text-6xl font-bold text-blue-600 drop-shadow-lg">
+            {counts.hospitals}+
+          </h2>
+          <p className="mt-3 text-gray-800 text-lg font-medium">
+            {t('partnerHospitals')}
+          </p>
+        </div>
+        <div className="flex flex-col items-center transform transition-all duration-700 ease-out delay-200" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(24px)' }}>
+          <h2 className="text-5xl md:text-6xl font-bold text-green-600 drop-shadow-lg">
+            {counts.donors}+
+          </h2>
+          <p className="mt-3 text-gray-800 text-lg font-medium">
+            {t('activeDonors')}
+          </p>
+        </div>
       </div>
     </section>
   );
 };
 
+
 // ✅ Donation Moments Carousel
 const DonationMoments = () => {
   const { t } = useTranslation();
-  const imageNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
+  // Define the filenames of the images to show (mix of JPG & PNG)
+  const images = [
+    'moment18.png',
+    'moment2.jpg',
+    'moment3.jpg',
+    'moment17.png',
+    'moment5.jpg',
+    'moment16.png',
+    'moment7.jpg',
+    'moment8.jpg',
+    'moment17.png',
+    'moment16.png' // newly-added image replacing the old tenth item
+  ];
   const scrollRef = useRef(null);
+
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -153,11 +231,11 @@ const DonationMoments = () => {
       <h2 className="text-3xl font-bold text-center text-red-600 mb-6">{t('donationMoments')}</h2>
       <div ref={scrollRef} className="overflow-hidden whitespace-nowrap px-4">
         <div className="flex gap-4">
-          {imageNumbers.map((num) => (
+          {images.map((file, idx) => (
           <img
-  key={num}
-  src={new URL(`../assets/Images/moment${num}.jpg`, import.meta.url).href}
-  alt={`Moment ${num}`}
+  key={idx}
+  src={new URL(`../assets/Images/${file}`, import.meta.url).href}
+  alt={`Donation moment ${idx + 1}`}
   className="h-60 w-80 object-cover rounded shadow-md flex-shrink-0"/>
           ))}
         </div>
@@ -190,13 +268,35 @@ const UrgentRequestSection = () => {
   );
 };
 
-// ✅ How Donation Works Section
+// ✅ How Donation Works Section with slide-in animation
 const HowDonationWorksSection = () => {
   const { t } = useTranslation();
+  // Observe when the section is in viewport
+  const sectionRef = React.useRef(null);
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect(); // run only once
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="bg-white py-12 px-4">
+    <section ref={sectionRef} className="bg-white py-12 px-4">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
-        <div className="flex-1 text-gray-800">
+        <div
+          className={`flex-1 text-gray-800 transform transition-all duration-1000 ease-out ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}
+        >
           <h2 className="text-3xl font-bold text-red-600 mb-8">{t('howDonationWorks')}</h2>
           <ol className="space-y-4 list-decimal list-inside text-gray-700">
             <li>
@@ -224,7 +324,9 @@ const HowDonationWorksSection = () => {
             </a>
           </div>
         </div>
-        <div className="flex-1">
+        <div
+          className={`flex-1 transform transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}
+        >
           <img src={howImg} alt="Donation process" className="rounded shadow-md w-full max-w-xs object-cover mx-auto" />
         </div>
       </div>
@@ -235,10 +337,25 @@ const HowDonationWorksSection = () => {
 // ✅ Testimonial Section
 const TestimonialSection = () => {
   const { t } = useTranslation();
+  const sectionRef = React.useRef(null);
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.2 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   return (
-    <section className="bg-white py-12 px-4 text-center">
+    <section ref={sectionRef} className="bg-white py-12 px-4 text-center">
       <h2 className="text-3xl font-bold text-red-600 mb-8">{t('whatDonorsAreSaying')}</h2>
-      <div className="max-w-4xl mx-auto grid gap-8 md:grid-cols-3">
+      <div className={`max-w-4xl mx-auto grid gap-8 md:grid-cols-3 transform transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
         <div className="bg-gray-50 p-6 rounded shadow">
           <p className="text-gray-700 italic">
             “{t('testimonialQuote1')}”

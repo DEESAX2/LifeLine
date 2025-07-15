@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import hosp1 from '../assets/Images/hosp1.png';
 import hosp2 from '../assets/Images/hosp2.png';
@@ -23,14 +23,41 @@ const partners = [
 
 const PartnersSection = () => {
   const { t } = useTranslation();
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const speed = 1; // px per tick
+    const interval = setInterval(() => {
+      container.scrollLeft += speed;
+      if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
+        container.scrollLeft = 0;
+      }
+    }, 20);
+    return () => clearInterval(interval);
+  }, []);
+
+
+
+  /* Removed unused auto-advance state */
+
   return (
   <section className="bg-gray-100 py-12 px-4 " id="partners">
     <div className="max-w-6xl mx-auto text-center">
       <h2 className="text-3xl font-bold text-red-600 mb-8">{t('partnerHospitalsSponsors')}</h2>
-      <div className="flex flex-wrap justify-center gap-8 items-center">
-        {partners.map((p) => (
-          <img key={p.id} src={p.img} alt={p.name} className="h-24 transition" />
-        ))}
+      {/* Horizontal scrolling logo carousel */}
+      <div ref={scrollRef} className="overflow-hidden w-full max-w-5xl mx-auto px-4">
+        <div className="flex gap-4 items-center">
+          {[...partners, ...partners].map((p, idx) => (
+            <img
+              key={`${p.id}-${idx}`}
+              src={p.img}
+              alt={p.name}
+              className="h-24 w-auto object-contain flex-shrink-0 basis-1/5"
+            />
+          ))}
+        </div>
       </div>
     </div>
   </section>

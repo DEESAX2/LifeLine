@@ -50,11 +50,22 @@ const progressRouter = createBrowserRouter([
 
 ])
 
+import React, { useState, useEffect } from 'react';
+import Preloader from './components/Preloader';
+
  function App() {
     
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const handle = setTimeout(() => setLoading(false), 1200); // artificial delay
+    return () => clearTimeout(handle);
+  }, []);
+
   return (
     <>
     <Toaster position="top-right"/>
+    {loading && <Preloader />}
     <RouterProvider router={progressRouter} />
     </>
   )

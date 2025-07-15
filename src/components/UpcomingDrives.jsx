@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 const normalizeDrives = (data) => data.map((d, idx) => ({
   id: d.id || idx + 1,
   date: d.date,
+  title: d.title || d.city || d.location || 'Untitled',
   city: d.city || d.location || d.title || 'Unknown',
   venue: d.venue || d.location || '-',
   bloodTypes: d.bloodTypes || 'All',
@@ -44,7 +45,7 @@ const DriveCard = ({ drive }) => {
   return (
   <div className="bg-white rounded shadow p-6 flex flex-col gap-2">
     <div className="text-sm text-gray-500">{new Date(drive.date).toLocaleDateString()}</div>
-    <h3 className="text-xl font-semibold text-red-600">{drive.city}</h3>
+    <h3 className="text-xl font-semibold text-red-600">{drive.title || drive.city}</h3>
     <p className="text-gray-800">{drive.venue}</p>
     <p className="text-gray-600 text-sm">{t('needed')}: {drive.bloodTypes}</p>
     <a
@@ -61,6 +62,8 @@ const DriveCard = ({ drive }) => {
 
 const UpcomingDrives = () => {
   const { t } = useTranslation();
+  const sectionRef = React.useRef(null);
+  const [visible, setVisible] = React.useState(false);
   const [drives, setDrives] = useState(() => {
     try {
       const saved = JSON.parse(localStorage.getItem('drives'));
@@ -69,6 +72,20 @@ const UpcomingDrives = () => {
       return seedDrives;
     }
   });
+  // Observe visibility
+  React.useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.25 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   // Listen for storage changes (when AdminEvents is open in another tab)
   useEffect(() => {
     const handler = (e) => {
@@ -83,10 +100,10 @@ const UpcomingDrives = () => {
     return () => window.removeEventListener('storage', handler);
   }, []);
   return (
-    <section className="bg-gray-100 py-12 px-4" id="drives">
+    <section ref={sectionRef} className="bg-gray-100 py-12 px-4" id="drives">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">{t('upcomingBloodDrives')}</h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transform transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
           {drives.map((d) => (
             <DriveCard key={d.id} drive={d} />
           ))}
