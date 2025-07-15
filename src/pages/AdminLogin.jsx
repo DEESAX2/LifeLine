@@ -3,9 +3,8 @@ import { Link } from "react-router";
 import blood from "../assets/Images/blood.png";
 import { apiClient } from '../api/client';
 import { useNavigate } from 'react-router';
-import lifelinelogo from "../assets/Images/lifelinelogo.jpg";
 
-export default function Login() {
+export default function AdminLogin() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
@@ -33,7 +32,7 @@ export default function Login() {
       
       localStorage.setItem("ACCESS_TOKEN", response.data.token);
       localStorage.setItem("USER_ROLE", response.data.role);
-      navigate("/");
+      navigate("/admin-dashboard");
     } catch (error) {
       setError(error.response?.data?.message || "Login failed.");
       console.log(error.response?.data || error.message);
@@ -42,13 +41,6 @@ export default function Login() {
 
   return (
     <>
-     <div className="relative min-h-screen flex items-start md:items-start justify-center bg-red-300">
-    <Link to= "/admin-login">
-        <img
-          src={lifelinelogo}
-          alt="LifeLine Logo"
-          className="absolute top-4 right-4 w-10 h-10 object-contain z-50"
-        /></Link>
       <div className="min-h-screen flex items-start md:items-start justify-center bg-red-300">
         <div className="bg-white shadow-2xl h-130 rounded-lg p-4 sm:p-4 w-full max-w-sm sm:max-w-md md:max-w-lg text-center mt-4 md:mt-10 ">
           <div className="flex justify-center mb-4 space-x-2">
@@ -56,7 +48,7 @@ export default function Login() {
             <span className="text-buttonblue text-2xl">🏥</span>
           </div>
           <div>
-            <h2 className="text-2xl font-bold mb-6">Blood Bank Staff Login</h2>
+            <h2 className="text-2xl font-bold mb-6">Admin Login</h2>
           </div>
 
           {error && (
@@ -91,10 +83,7 @@ export default function Login() {
             >Login</button>
           </form>
 
-          <div className="mt-6 text-sm">
-            <p className="text-buttonblue">Don't have an account?{" "}
-              <Link to="/register" className="text-buttonblue hover:underline">Register</Link>
-            </p>
+        
             <p className="mt-8">
               <Link to="/" className="text-gray-600 hover:underline">
                 Back to Home
@@ -102,8 +91,7 @@ export default function Login() {
             </p>
           </div>
         </div>
-      </div>
-      </div>
+    
     </>
   );
 }

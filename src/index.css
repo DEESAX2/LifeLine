@@ -1,7 +1,27 @@
 @import "tailwindcss";
 
+/* === Preloader animations === */
+@keyframes fill-drop {
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
 
-@theme{
+@keyframes heartbeat {
+  0%, 20%, 40%, 60%, 80%, 100% { transform: scale(1); }
+  30%, 50%, 70% { transform: scale(1.25); }
+}
+
+.animate-fill {
+  transform-origin: center bottom;
+  animation: fill-drop 1.4s forwards;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+
+:root {
 
 --color-submitred: #B91C1C;
 --color-buttonred: #F34949;
@@ -11,4 +31,11 @@
 
 .input {
   @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-300;
+}
+
+
+
+
+.bg-lightblue {
+    background-color: #E6F1FA;
 }

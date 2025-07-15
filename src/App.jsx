@@ -17,6 +17,7 @@ import Messages from "./components/Messages"
 import BloodInventory from "./components/BloodInventory";
 import { Toaster } from 'react-hot-toast';
 import AdminEvents from "./components/AdminEvents";
+import AdminLogin from "./pages/AdminLogin";
 
 
 const progressRouter = createBrowserRouter([
@@ -38,6 +39,8 @@ const progressRouter = createBrowserRouter([
       { path: "/messages", element: <Messages /> },      
       { path: "/blood-inventory", element: <BloodInventory/> },      
       { path: "/admin-events", element: <AdminEvents/> },      
+       { path: "/admin-login", element: <AdminLogin/> },      
+
       
       
       
@@ -50,11 +53,22 @@ const progressRouter = createBrowserRouter([
 
 ])
 
+import React, { useState, useEffect } from 'react';
+import Preloader from './components/Preloader';
+
  function App() {
     
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const handle = setTimeout(() => setLoading(false), 1200); // artificial delay
+    return () => clearTimeout(handle);
+  }, []);
+
   return (
     <>
     <Toaster position="top-right"/>
+    {loading && <Preloader />}
     <RouterProvider router={progressRouter} />
     </>
   )

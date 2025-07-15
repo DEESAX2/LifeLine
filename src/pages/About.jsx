@@ -8,7 +8,7 @@ export default function About() {
   
   return (
     <>
-   <section className="bg-gradient-to-bl from-white to-red-300 text-gray-800 py-12 px-6 md:px-16 lg:px-32">
+   <section className="bg-red-300 text-gray-800 py-12 px-6 md:px-16 lg:px-32">
      <header className="bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         

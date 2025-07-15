@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import video1 from '../assets/videos/video1.mp4';
 import video2 from '../assets/videos/video2.mp4';
@@ -55,14 +55,29 @@ const StoriesSection = () => {
   const { t } = useTranslation();
   const stories = baseStories;
   const [active, setActive] = useState(null);
+  const sectionRef = React.useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.25 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const close = () => setActive(null);
 
   return (
-    <section className="bg-white py-12 px-4" id="stories">
+    <section ref={sectionRef} className="bg-white py-12 px-4" id="stories">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">{t('donorRecipientStories')}</h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transform transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
           {stories.map((s) => (
             <StoryCard key={s.id} s={s} onOpen={setActive} />
           ))}

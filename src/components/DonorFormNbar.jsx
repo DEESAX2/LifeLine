@@ -3,7 +3,7 @@ import { HiMenu, HiX, HiChevronDown } from 'react-icons/hi';
 import { useTranslation } from 'react-i18next';
 import logoImg from '../assets/Images/lifelinelogo.jpg';
 
-const Navbar = () => {
+const DonorFormNbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const { t, i18n } = useTranslation();
@@ -16,10 +16,10 @@ const Navbar = () => {
   ];
 
   const changeLanguage = (lng) => {
-    localStorage.setItem('lng', lng);
     i18n.changeLanguage(lng);
     setMenuOpen(false);
   };
+  
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md px-1 py-0 flex items-center justify-between z-50">
@@ -81,20 +81,6 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Buttons - Desktop */}
-      <div className="hidden md:flex gap-4 ml-4">
-        <a href="/login">
-          <button className="text-red-600 border border-red-600 px-3 py-1 rounded-md hover:bg-red-50 transition">
-            {t('hospitalLogin')}
-          </button>
-        </a>
-        <a href="/donate">
-          <button className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition">
-            {t('donateNow')}
-          </button>
-        </a>
-      </div>
-
       {/* Hamburger Icon */}
       <div
         className="md:hidden text-3xl text-red-600"
@@ -150,21 +136,10 @@ const Navbar = () => {
               </ul>
             )}
           </div>
-
-          <a href="/login" onClick={() => setMenuOpen(false)}>
-            <button className="w-full text-red-600 border border-red-600 px-3 py-1 rounded-md hover:bg-red-50 transition">
-              {t('hospitalLogin')}
-            </button>
-          </a>
-          <a href="/donate" onClick={() => setMenuOpen(false)}>
-            <button className="w-full bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-700 transition">
-              {t('donateNow')}
-            </button>
-          </a>
         </div>
       )}
     </nav>
   );
 };
 
-export default Navbar;
+export default DonorFormNbar;
