@@ -6,7 +6,7 @@ import Donate from "./pages/Donate";
 import DonorHistory from "./pages/DonorHistory";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import UserDashboard from "./pages/UserDashboard";
+import HospitalDashboard from "./pages/HospitalDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import BloodRequests from "./pages/BloodRequests";
 import NotFound from "./pages/NotFound";
@@ -28,7 +28,7 @@ const progressRouter = createBrowserRouter([
        { path: "/donor-history", element: <DonorHistory /> },
    { path: "/login", element: <Login /> },
    { path: "/register", element: <Register /> },
-    { path: "/user-dashboard", element: <UserDashboard /> },
+    { path: "/hospital-dashboard", element: <HospitalDashboard /> },
     { path: "/admin-dashboard", element: <AdminDashboard /> },
      { path: "/contact", element: <Contact /> },
       { path: "*", element: <NotFound /> },
