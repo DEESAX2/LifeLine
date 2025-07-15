@@ -28,3 +28,14 @@
 --color-buttonblue: #2563EB;
 
 }
+
+.input {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-300;
+}
+
+
+
+
+.bg-lightblue {
+    background-color: #E6F1FA;
+}
