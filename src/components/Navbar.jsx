@@ -64,7 +64,7 @@ const Navbar = () => {
               </li>
               <li>
                 <a href="/team" className="block px-3 py-1 hover:bg-red-100">
-                  {t('ourTeam')}
+                  {t('Our Team')}
                 </a>
               </li>
             </ul>
@@ -76,7 +76,7 @@ const Navbar = () => {
       <div className="hidden md:block relative ml-4">
         <button
           onClick={() => setLangOpen((prev) => !prev)}
-          className="border px-3 py-1 rounded-md flex items-center gap-1 hover:bg-red-50"
+          className=" px-3 py-1 rounded-md flex items-center gap-1 hover:text-red-500 font-semibold  text-gray-700"
         >
           {t('languages') || 'Languages'} <HiChevronDown />
         </button>
@@ -152,7 +152,7 @@ const Navbar = () => {
             className="text-gray-700 hover:text-red-600 w-full"
             onClick={() => setMenuOpen(false)}
           >
-            Our Team
+            {t('ourteam')}
           </a>
 
           {/* Language Dropdown - Mobile */}

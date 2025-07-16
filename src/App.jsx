@@ -40,7 +40,8 @@ const progressRouter = createBrowserRouter([
       { path: "/messages", element: <Messages /> },      
       { path: "/blood-inventory", element: <BloodInventory/> },      
       { path: "/admin-events", element: <AdminEvents/> },      
-       { path: "/admin-login", element: <AdminLogin/> },      
+       { path: "/admin-login", element: <AdminLogin/> },  
+       { path: "/team", element: <OurTeam/> },      
 
       
       

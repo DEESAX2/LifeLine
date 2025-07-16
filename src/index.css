@@ -22,20 +22,46 @@
 
 
 :root {
-
---color-submitred: #B91C1C;
---color-buttonred: #F34949;
---color-buttonblue: #2563EB;
-
+  --color-submitred: #B91C1C;
+  --color-buttonred: #F34949;
+  --color-buttonblue: #2563EB;
 }
 
 .input {
   @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-300;
 }
 
-
-
-
 .bg-lightblue {
-    background-color: #E6F1FA;
+  background-color: #E6F1FA;
+}
+
+/* === Team Page Animations (added) === */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeUp {
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 1s ease-out forwards;
 }
