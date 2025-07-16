@@ -1,4 +1,4 @@
-import Dashboardnav from "../components/Dashboardnav.jsx"
+import Dashboardnav from "../components/Dashboardnav.jsx.jsx"
 import UserProfile from "../components/UserProfile.jsx"
 import DashboardContent from "../components/DashboardContent.jsx"
 

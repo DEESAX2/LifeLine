@@ -6,7 +6,7 @@ import Donate from "./pages/Donate";
 import DonorHistory from "./pages/DonorHistory";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import UserDashboard from "./pages/UserDashboard";
+import HospitalDashboard from "./pages/HospitalDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import BloodRequests from "./pages/BloodRequests";
 import NotFound from "./pages/NotFound";
@@ -22,25 +22,13 @@ import OurTeam from "./pages/OurTeam";
 
 const progressRouter = createBrowserRouter([
   { path: "/", element: <Home /> },
-  { path: "/about", element: <About /> },
-  { path: "/team", element: <OurTeam /> },
-  { path: "/admin-dashboard", element: <AdminDashboard /> },
-  { path: "/blood-requests", element: <BloodRequests /> },
-  { path: "/donate", element: <Donate /> },
-  { path: "/donor-history", element: <DonorHistory /> },
-  { path: "/login", element: <Login /> },
-  { path: "/register", element: <Register /> },
-  { path: "/user-dashboard", element: <UserDashboard /> },
-  { path: "/admin-dashboard", element: <AdminDashboard /> },
-  { path: "/contact", element: <Contact /> },
-  { path: "*", element: <NotFound /> },
-  { path: "/footer", element: <Footer /> },
-  { path: "/navbar", element: <Navbar /> },
-  { path: "/upcoming-drives", element: <UpcomingDrives /> },
-  { path: "/messages", element: <Messages /> },      
-  { path: "/blood-inventory", element: <BloodInventory/> },      
-  { path: "/admin-events", element: <AdminEvents/> },      
-  { path: "/admin-login", element: <AdminLogin/> },      
+   { path: "/about", element: <About /> },
+    { path: "/admin-dashboard", element: <AdminDashboard /> },
+     { path: "/blood-requests", element: <BloodRequests /> },
+      { path: "/donate", element: <Donate /> },
+       { path: "/donor-history", element: <DonorHistory /> },
+   { path: "/login", element: <Login /> },
+   { path: "/register", element: <Register /> },
     { path: "/user-dashboard", element: <UserDashboard /> },
     { path: "/admin-dashboard", element: <AdminDashboard /> },
      { path: "/contact", element: <Contact /> },
