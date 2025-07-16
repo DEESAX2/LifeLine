@@ -19,6 +19,7 @@ import { Toaster } from 'react-hot-toast';
 import AdminEvents from "./components/AdminEvents";
 import AdminLogin from "./pages/AdminLogin";
 import OurTeam from "./pages/OurTeam";
+import UserDashboard from "./pages/HospitalDashboard"; // <-- ADD THIS LINE
 
 const progressRouter = createBrowserRouter([
   { path: "/", element: <Home /> },
