@@ -6,6 +6,7 @@ import logoImg from '../assets/Images/lifelinelogo.jpg';
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const { t, i18n } = useTranslation();
 
   const navLinks = [
@@ -22,7 +23,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow-md px-1 py-0 flex items-center justify-between z-50">
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md px-1 py-0 flex items-center justify-between z-50 border-b-4 border-red-600">
       {/* Logo */}
       <div className="flex items-center gap-3">
         <a href="/admin-dashboard">
@@ -36,7 +37,7 @@ const Navbar = () => {
 
       {/* Desktop Navigation */}
       <ul className="hidden md:flex gap-20 text-gray-700 font-medium">
-        {navLinks.map((link) => (
+        {navLinks.filter(l => l.key !== 'about').map((link) => (
           <li key={link.key}>
             <a
               href={link.href}
@@ -46,6 +47,29 @@ const Navbar = () => {
             </a>
           </li>
         ))}
+        {/* About dropdown */}
+        <li className="relative">
+          <button
+            onClick={() => setAboutOpen(prev => !prev)}
+            className="flex items-center gap-1 hover:text-red-600 transition-colors duration-300"
+          >
+            {t('about')} <HiChevronDown />
+          </button>
+          {aboutOpen && (
+            <ul className="absolute left-0 mt-2 w-32 bg-white border rounded shadow-md z-50">
+              <li>
+                <a href="/about" className="block px-3 py-1 hover:bg-red-100">
+                  {t('about')}
+                </a>
+              </li>
+              <li>
+                <a href="/team" className="block px-3 py-1 hover:bg-red-100">
+                  {t('ourTeam')}
+                </a>
+              </li>
+            </ul>
+          )}
+        </li>
       </ul>
 
       {/* Language Dropdown - Desktop */}
@@ -106,7 +130,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-white shadow-md z-50 flex flex-col items-start px-2 py-2 space-y-2 md:hidden">
-          {navLinks.map((link) => (
+          {navLinks.filter(l => l.key !== 'about').map((link) => (
             <a
               key={link.key}
               href={link.href}
@@ -116,6 +140,20 @@ const Navbar = () => {
               {t(link.key)}
             </a>
           ))}
+          <a
+            href="/about"
+            className="text-gray-700 hover:text-red-600 w-full"
+            onClick={() => setMenuOpen(false)}
+          >
+            {t('about')}
+          </a>
+          <a
+            href="/team"
+            className="text-gray-700 hover:text-red-600 w-full"
+            onClick={() => setMenuOpen(false)}
+          >
+            Our Team
+          </a>
 
           {/* Language Dropdown - Mobile */}
           <div className="w-full">
