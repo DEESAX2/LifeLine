@@ -1,29 +1,61 @@
-import Dashboardnav from "../components/Dashboardnav.jsx.jsx"
-import UserProfile from "../components/UserProfile.jsx"
-import DashboardContent from "../components/DashboardContent.jsx"
+import { useState } from 'react';
+import DashboardNav from "../components/DashboardNav";
+import Sidebar from "../components/SideBar";
+import CreateBloodRequestModal from "../components/CreateBloodRequestModal";
+import DonorAppointments from "../components/DonorAppointments";
+import RecentDonorResponseCard from "../components/RecentDonorResponseCard";
+import { useNavigate } from "react-router";
 
-export default function UserDashboard() {
+export default function HospitalDashboard() {
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [currentView, setCurrentView] = useState("dashboard");
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/');
+  };
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
+      <DashboardNav
+        setIsCreateModalOpen={setIsCreateModalOpen}
+        handleLogout={handleLogout}
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
-      <Dashboardnav />
-      <section className="mt-7">
-        <div className="flex flex-col md:flex-row w-full h-screen p-4 gap-4">
-          {/* User Profile */}
-          <div className="md:w-1/3 w-full border border-gray-300 p-4 rounded mt-3.5 " >
-            <UserProfile />
-          </div>
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar
+          currentView={currentView}
+          setCurrentView={setCurrentView}
+          sidebarOpen={sidebarOpen}
+          navigate={navigate}
+        />
 
-          {/* Main dashboard content */}
-          <div className="md:w-2/3 w-full border border-none p-4 ">
-            <DashboardContent />
-          </div>
-        </div>
+        <main className="flex-1 p-6 overflow-y-auto bg-gray-50">
+          <h1 className="text-2xl font-bold mb-4 capitalize">{currentView}</h1>
+          
+          {currentView === "dashboard" && (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-white rounded-lg shadow p-6">
+                <p className="text-gray-700">Welcome to the Hospital Dashboard!</p>
+              </div>
+              <RecentDonorResponseCard />
+            </div>
+          )}
 
+          {currentView === "appointments" && <DonorAppointments />}
+        </main>
+      </div>
 
-
-      </section>
-    </>
-  )
+      {isCreateModalOpen && (
+        <CreateBloodRequestModal
+          isOpen={isCreateModalOpen}
+          onClose={() => setIsCreateModalOpen(false)}
+          onRequestCreated={() => console.log("Request created!")}
+        />
+      )}
+    </div>
+  );
 }

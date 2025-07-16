@@ -1,5 +1,4 @@
 import DonorHistoryCard from "../components/DonorHistoryCard"
-import UserhistoryNav from "../components/UserhistoryNav"
 import { SearchIcon } from "lucide-react"
 
 export default function DonorHistory() {
