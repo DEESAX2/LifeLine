@@ -1,34 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   LayoutDashboard,
-  Users,
   Droplet,
   Calendar,
-  Mail,
   LogOut,
   Menu
 } from 'lucide-react';
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import toast, { Toaster } from 'react-hot-toast';
+import { apiClient, apiFetcher } from '../api/client';
+import PendingHospitals from '../components/PendingHospitals';
 
 const isAdmin = true;
 
 const AdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [stats, setStats] = useState({ pending: 0, approved: 0, declined: 0 });
+  const [pendingHospitals, setPendingHospitals] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <h2 className="text-xl text-red-500">Access Denied. You are not authorized to view this page.</h2>
-      </div>
-    );
-  }
+  useEffect(() => {
+    // Fetch dashboard stats
+    apiFetcher("/admin/dashboard/stats")
+      .then(data => setStats(data))
+      .catch(() => toast.error("Failed to fetch dashboard stats"))
+      .finally(() => setLoading(false));
 
-  const cards = [
-    { title: 'Pending Approvals', value: 250 },
-    { title: 'Approved Hospitals', value: 15 },
-    { title: 'Declined Hospital', value: 120 },
-  ];
+    // Fetch pending hospital requests
+    apiFetcher("/admin/pending/hospitals")
+      .then(data => {
+        console.log("Fetched pending hospitals:", data); // Debug line
+        setPendingHospitals(data || []);
+      })
+      .catch(() => {
+        toast.error("Failed to fetch pending hospitals.");
+      });
+  }, []);
+
+  const declineHospital = async (id) => {
+    try {
+      await apiClient.patch(`/admin/decline/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`
+        }
+      });
+      toast.success("Hospital request declined!");
+      setPendingHospitals(prev => prev.filter(h => h.id !== id));
+    } catch {
+      toast.error("Failed to decline hospital.");
+    }
+  };
+
+  const approveHospital = async (id) => {
+    try {
+      await apiClient.patch(`/admin/approve/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`
+        }
+      });
+      toast.success("Hospital request approved!");
+      setPendingHospitals(prev => prev.filter(h => h.id !== id));
+    } catch {
+      toast.error("Failed to approve hospital.");
+    }
+  };
 
   const chartData = [
     { name: 'A+', value: 30 },
@@ -39,6 +74,14 @@ const AdminDashboard = () => {
   ];
 
   const COLORS = ['#EF4444', '#F97316', '#10B981', '#3B82F6', '#6366F1'];
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <h2 className="text-xl text-red-500">Access Denied. You are not authorized to view this page.</h2>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -60,7 +103,7 @@ const AdminDashboard = () => {
         <aside className={`bg-white w-64 p-4 text-white md:block z-20 ${sidebarOpen ? 'block absolute h-full' : 'hidden'} md:relative`}>
           <ul className="space-y-15">
             <li><a href="/admin-dashboard" className="flex items-center gap-2 text-red-500 font-bold mt-8"><LayoutDashboard className="w-5 h-5" /> Dashboard</a></li>
-            <li><a href="/" className="flex items-center gap-2 text-black"><Droplet className="w-5 h-5" /> Hospital Request</a></li>
+            
             <li><a href="/admin-events" className="flex items-center gap-2 text-black"><Calendar className="w-5 h-5" /> Events</a></li>
             <li><a href="/" className="flex items-center gap-2 text-black"><LogOut className="w-5 h-5" /> Logout</a></li>
           </ul>
@@ -70,13 +113,26 @@ const AdminDashboard = () => {
         <main className="flex-1 p-6 bg-red-100 overflow-y-auto">
           {/* Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-            {cards.map((card, idx) => (
-              <div key={idx} className="bg-white p-6 shadow-md rounded-lg text-center">
-                <h3 className="text-gray-600">{card.title}</h3>
-                <p className="text-2xl font-bold text-red-600">{card.value}</p>
-              </div>
-            ))}
+            <div className="bg-white p-6 shadow-md rounded-lg text-center">
+              <h3 className="text-gray-600">Pending Approvals</h3>
+              <p className="text-2xl font-bold text-red-600">{loading ? "..." : stats.pending}</p>
+            </div>
+            <div className="bg-white p-6 shadow-md rounded-lg text-center">
+              <h3 className="text-gray-600">Approved Hospitals</h3>
+              <p className="text-2xl font-bold text-red-600">{loading ? "..." : stats.approved}</p>
+            </div>
+            <div className="bg-white p-6 shadow-md rounded-lg text-center">
+              <h3 className="text-gray-600">Declined Hospitals</h3>
+              <p className="text-2xl font-bold text-red-600">{loading ? "..." : stats.declined}</p>
+            </div>
           </div>
+
+          {/* Pending Hospitals List */}
+          <PendingHospitals
+            hospitals={pendingHospitals}
+            onApprove={approveHospital}
+            onDecline={declineHospital}
+          />
 
           {/* Pie Chart */}
           <div className="bg-white p-6 shadow-md rounded-lg">

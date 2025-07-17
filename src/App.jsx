@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import HospitalDashboard from "./pages/HospitalDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import BloodRequests from "./pages/BloodRequests";
+import PendingHospitals from "./components/PendingHospitals";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -41,7 +42,8 @@ const progressRouter = createBrowserRouter([
       { path: "/admin-events", element: <AdminEvents/> },      
        { path: "/admin-login", element: <AdminLogin/> },  
        { path: "/team", element: <OurTeam/> },
-       { path: "/user-dashboard", element: <UserDashboard /> } 
+       { path: "/user-dashboard", element: <UserDashboard /> },
+         { path: "/pending-hospitals", element: <PendingHospitals /> } 
 
 
       

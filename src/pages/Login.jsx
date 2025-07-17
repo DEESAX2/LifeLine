@@ -33,7 +33,7 @@ export default function Login() {
       
       localStorage.setItem("ACCESS_TOKEN", response.data.token);
       localStorage.setItem("USER_ROLE", response.data.role);
-      navigate("/");
+      navigate("/hospital-dashboard");
     } catch (error) {
       setError(error.response?.data?.message || "Login failed.");
       console.log(error.response?.data || error.message);
