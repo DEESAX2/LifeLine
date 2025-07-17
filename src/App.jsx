@@ -30,7 +30,7 @@ const progressRouter = createBrowserRouter([
        { path: "/donor-history", element: <DonorHistory /> },
    { path: "/login", element: <Login /> },
    { path: "/register", element: <Register /> },
-    { path: "/user-dashboard", element: <UserDashboard /> },
+    { path: "/hospital-dashboard", element: <HospitalDashboard /> },
     { path: "/admin-dashboard", element: <AdminDashboard /> },
      { path: "/contact", element: <Contact /> },
       { path: "*", element: <NotFound /> },
