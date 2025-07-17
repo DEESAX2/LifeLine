@@ -21,7 +21,7 @@
 }
 
 
-:root {
+@theme {
 
 --color-submitred: #B91C1C;
 --color-buttonred: #F34949;
