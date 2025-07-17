@@ -39,7 +39,7 @@ const progressRouter = createBrowserRouter([
       { path: "/admin-events", element: <AdminEvents/> },      
        { path: "/admin-login", element: <AdminLogin/> },  
        { path: "/team", element: <OurTeam/> },
-       { path: "/user-dashboard", element: <UserDashboard /> } 
+      
 
 
       
