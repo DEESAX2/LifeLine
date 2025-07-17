@@ -42,15 +42,15 @@ export default function Login() {
 
   return (
     <>
-     <div className="relative min-h-screen flex items-start md:items-start justify-center bg-red-300">
+     <div className="relative min-h-screen flex items-start md:items-start justify-center bg-gradient-to-b  from-submitred">
     <Link to= "/admin-login">
         <img
           src={lifelinelogo}
           alt="LifeLine Logo"
-          className="absolute top-4 right-4 w-10 h-10 object-contain z-50"
+          className=" absolute top-4 right-4 w-10 h-10 "
         /></Link>
-      <div className="min-h-screen flex items-start md:items-start justify-center bg-red-300">
-        <div className="bg-white shadow-2xl h-130 rounded-lg p-4 sm:p-4 w-full max-w-sm sm:max-w-md md:max-w-lg text-center mt-4 md:mt-10 ">
+      <div className="min-h-screen flex items-start md:items-start justify-center bg-gradient from-red-300 to-red-500">
+        <div className="bg-white shadow-3xl h-130 w-160 rounded-lg p-4 sm:p-4 max-w-sm sm:max-w-md md:max-w-lg text-center mt-4 md:mt-10 ">
           <div className="flex justify-center mb-4 space-x-2">
             <span className="text-red-500 text-2xl"><img src={blood} alt="blood" className="w-7" /></span>
             <span className="text-buttonblue text-2xl">🏥</span>
@@ -65,7 +65,7 @@ export default function Login() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4 ">
+          <form onSubmit={handleSubmit} className="space-y-6 ">
             <p className="flex justify-items-start font-bold mb-0">Email</p>
             <input
               type="email"
@@ -73,7 +73,7 @@ export default function Login() {
               value={form.email}
               onChange={handleChange}
               placeholder="Enter Your Email"
-              className="w-full px-4 py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full px-6 py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
 
             <p className="flex justify-items-start font-bold mb-0">Password</p>

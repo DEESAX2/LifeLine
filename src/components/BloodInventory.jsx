@@ -59,10 +59,7 @@ const BloodInventory = () => {
         <aside className={`bg-white w-full md:w-64 p-4 text-white z-20 ${sidebarOpen ? 'block' : 'hidden'} md:block`}>
           <ul className="space-y-15">
             <li><a href="/admin-dashboard" className="flex items-center gap-2 text-black"><LayoutDashboard className="w-5 h-5" /> Dashboard</a></li>
-            <li><a href="/donor-history" className="flex items-center gap-2 text-black"><Users className="w-5 h-5" /> Donors</a></li>
             <li><a href="/blood-inventory" className="flex items-center gap-2 text-red-500 font-bold"><Droplet className="w-5 h-5" /> Blood Inventory</a></li>
-            <li><a href="/admin-events" className="flex items-center gap-2 text-black"><Calendar className="w-5 h-5" /> Events</a></li>
-            <li><a href="/messages" className="flex items-center gap-2 text-black"><Mail className="w-5 h-5" /> Messages</a></li>
             <li><a href="/" className="flex items-center gap-2 text-black"><LogOut className="w-5 h-5" /> Logout</a></li>
           </ul>
         </aside>

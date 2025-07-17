@@ -8,7 +8,7 @@ export default function About() {
   
   return (
     <>
-   <section className="bg-red-300 text-gray-800 py-12 px-6 md:px-16 lg:px-32">
+   <section className="bg-gradient-to-b  from-submitred text-gray-800 py-12 px-6 md:px-16 lg:px-32">
      <header className="bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         
@@ -37,7 +37,7 @@ export default function About() {
     
         <div className="mb-16">
   <h2 className="text-3xl font-extrabold text-center text-gray-900 mb-10">
-    The Impact of <span className="text-red-600">Blood Donation</span>
+    The Impact of <span className="text-black ">Blood Donation</span>
   </h2>
 
   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">

@@ -59,7 +59,7 @@ export default function Register() {
 
   return (
     <>
-      <div className="min-h-screen flex items-start md:items-start justify-center bg-red-300 px-2 sm:px-4 ">
+      <div className="min-h-screen flex items-start md:items-start justify-center bg-gradient-to-b  from-submitred px-2 sm:px-4 ">
         <div className="bg-white shadow-2xl rounded-lg sm:p-4 w-full max-w-sm sm:max-w-md md:max-w-lg text-center  md:mt-5 ">
           <div className="flex justify-center mb-4 space-x-2">
             <span className="text-red-500 text-2xl"><img src={blood} alt="blood" className="w-7" /></span>

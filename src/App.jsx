@@ -13,7 +13,6 @@ import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import UpcomingDrives from "./components/UpcomingDrives";
-import Messages from "./components/Messages" 
 import BloodInventory from "./components/BloodInventory";
 import { Toaster } from 'react-hot-toast';
 import AdminEvents from "./components/AdminEvents";
@@ -35,12 +34,13 @@ const progressRouter = createBrowserRouter([
       { path: "*", element: <NotFound /> },
       { path: "/footer", element: <Footer /> },
       { path: "/navbar", element: <Navbar /> },
-      { path: "/upcoming-drives", element: <UpcomingDrives /> },
-      { path: "/messages", element: <Messages /> },      
+      { path: "/upcoming-drives", element: <UpcomingDrives /> },      
       { path: "/blood-inventory", element: <BloodInventory/> },      
       { path: "/admin-events", element: <AdminEvents/> },      
        { path: "/admin-login", element: <AdminLogin/> },  
-       { path: "/team", element: <OurTeam/> },      
+       { path: "/team", element: <OurTeam/> },
+       { path: "/user-dashboard", element: <UserDashboard /> } 
+
 
       
       
