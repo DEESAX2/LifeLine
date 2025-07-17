@@ -56,10 +56,10 @@ const Navbar = () => {
             {t('about')} <HiChevronDown />
           </button>
           {aboutOpen && (
-            <ul className="absolute left-0 mt-2 w-32 bg-white border rounded shadow-md z-50">
+            <ul className="absolute left-0 mt-2 w-32 bg-white  rounded shadow-md z-50">
               <li>
                 <a href="/about" className="block px-3 py-1 hover:bg-red-100">
-                  {t('about')}
+                  {t('aboutus')}
                 </a>
               </li>
               <li>
@@ -81,7 +81,7 @@ const Navbar = () => {
           {t('languages') || 'Languages'} <HiChevronDown />
         </button>
         {langOpen && (
-          <ul className="absolute right-0 mt-2 w-28 bg-white border rounded shadow-md z-50">
+          <ul className="absolute right-0 mt-2 w-28 bg-white rounded shadow-md z-50">
             {[
               { code: 'en', label: 'English' },
               { code: 'tw', label: 'Twi' },
