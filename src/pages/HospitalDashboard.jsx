@@ -5,6 +5,7 @@ import CreateBloodRequestModal from "../components/CreateBloodRequestModal";
 import DonorAppointments from "../components/DonorAppointments";
 import RecentDonorResponseCard from "../components/RecentDonorResponseCard";
 import { useNavigate } from "react-router";
+import DonorResponses from '../components/DonorResponses';
 
 export default function HospitalDashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -55,7 +56,11 @@ export default function HospitalDashboard() {
           onClose={() => setIsCreateModalOpen(false)}
           onRequestCreated={() => console.log("Request created!")}
         />
+
+        
       )}
+
+      {/* <DonorResponses /> */}
     </div>
   );
 }
