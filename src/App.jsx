@@ -6,7 +6,7 @@ import Donate from "./pages/Donate";
 import DonorHistory from "./pages/DonorHistory";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import UserDashboard from "./pages/UserDashboard";
+import HospitalDashboard from "./pages/HospitalDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import BloodRequests from "./pages/BloodRequests";
 import NotFound from "./pages/NotFound";
@@ -18,7 +18,8 @@ import BloodInventory from "./components/BloodInventory";
 import { Toaster } from 'react-hot-toast';
 import AdminEvents from "./components/AdminEvents";
 import AdminLogin from "./pages/AdminLogin";
-
+import OurTeam from "./pages/OurTeam";
+import UserDashboard from "./pages/HospitalDashboard"; // <-- ADD THIS LINE
 
 const progressRouter = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -29,7 +30,7 @@ const progressRouter = createBrowserRouter([
        { path: "/donor-history", element: <DonorHistory /> },
    { path: "/login", element: <Login /> },
    { path: "/register", element: <Register /> },
-    { path: "/user-dashboard", element: <UserDashboard /> },
+    { path: "/hospital-dashboard", element: <HospitalDashboard /> },
     { path: "/admin-dashboard", element: <AdminDashboard /> },
      { path: "/contact", element: <Contact /> },
       { path: "*", element: <NotFound /> },
@@ -39,7 +40,8 @@ const progressRouter = createBrowserRouter([
       { path: "/messages", element: <Messages /> },      
       { path: "/blood-inventory", element: <BloodInventory/> },      
       { path: "/admin-events", element: <AdminEvents/> },      
-       { path: "/admin-login", element: <AdminLogin/> },      
+       { path: "/admin-login", element: <AdminLogin/> },  
+       { path: "/team", element: <OurTeam/> },      
 
       
       
