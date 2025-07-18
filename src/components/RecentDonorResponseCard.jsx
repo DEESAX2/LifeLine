@@ -37,18 +37,37 @@ const getUrgencyColor = (urgency) => {
 const RecentDonorResponseCard = () => {
   const [donors, setDonors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://lifeline-api-w5wc.onrender.com/api/v1/hospital/appointments")
-      .then(res => res.json())
-      .then(data => {
-        setDonors(data); // assuming API returns an array
-        setLoading(false);
-      })
-      .catch(err => {
+    const fetchDonors = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await fetch("https://lifeline-api-w5wc.onrender.com/api/v1/hospital/appointments");
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Handle different response formats
+        const donorsData = Array.isArray(data) ? data : 
+                          (data.data || data.donors || data.results || []);
+        
+        setDonors(donorsData);
+      } catch (err) {
         console.error("Failed to fetch donor responses:", err);
+        setError(err.message);
+        setDonors([]); // Fallback to empty array
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchDonors();
   }, []);
 
   if (loading) return <p>Loading donor responses...</p>;
@@ -64,6 +83,12 @@ const RecentDonorResponseCard = () => {
           {donors.length} Active
         </span>
       </div>
+
+      {error && (
+        <div className="mb-4 p-3 bg-yellow-100 text-yellow-800 rounded">
+          Warning: {error}. Showing fallback data.
+        </div>
+      )}
 
       <div className="space-y-4 max-h-[400px] overflow-y-auto">
         {donors.map((donor) => (

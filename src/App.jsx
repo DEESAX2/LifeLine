@@ -19,8 +19,6 @@ import { Toaster } from 'react-hot-toast';
 import AdminEvents from "./components/AdminEvents";
 import AdminLogin from "./pages/AdminLogin";
 import OurTeam from "./pages/OurTeam";
-import UserDashboard from "./pages/HospitalDashboard";
- 
 
 const progressRouter = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -42,8 +40,12 @@ const progressRouter = createBrowserRouter([
       { path: "/admin-events", element: <AdminEvents/> },      
        { path: "/admin-login", element: <AdminLogin/> },  
        { path: "/team", element: <OurTeam/> },
+<<<<<<< HEAD
        { path: "/user-dashboard", element: <UserDashboard /> },
          { path: "/pending-hospitals", element: <PendingHospitals /> } 
+=======
+      
+>>>>>>> 009c4e1bebba1038e1f348e13fc2af4ebcbbca57
 
 
       
