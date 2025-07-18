@@ -40,12 +40,10 @@ const progressRouter = createBrowserRouter([
       { path: "/admin-events", element: <AdminEvents/> },      
        { path: "/admin-login", element: <AdminLogin/> },  
        { path: "/team", element: <OurTeam/> },
-<<<<<<< HEAD
-       { path: "/user-dashboard", element: <UserDashboard /> },
-         { path: "/pending-hospitals", element: <PendingHospitals /> } 
-=======
+       {path:"pending-hospitals", element: <PendingHospitals />},
+       
+         
       
->>>>>>> 009c4e1bebba1038e1f348e13fc2af4ebcbbca57
 
 
       
@@ -62,6 +60,7 @@ const progressRouter = createBrowserRouter([
 
 import React, { useState, useEffect } from 'react';
 import Preloader from './components/Preloader';
+
 
  function App() {
     
