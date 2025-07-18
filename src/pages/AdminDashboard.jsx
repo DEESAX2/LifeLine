@@ -105,9 +105,9 @@ const AdminDashboard = () => {
 
   // Chart data for approval status
   const statusData = [
-    { name: 'Pending', value: stats.pending, color: '#FACC15' }, // yellow-400
-    { name: 'Approved', value: stats.approved, color: '#22C55E' }, // green-500
-    { name: 'Declined', value: stats.declined, color: '#EF4444' }, // red-500
+    { name: 'Pending', value: stats.pending, color: '#FACC15' },
+    { name: 'Approved', value: stats.approved, color: '#22C55E' }, 
+    { name: 'Declined', value: stats.declined, color: '#EF4444' }, 
   ];
 
   if (!isAdmin) {
