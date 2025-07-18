@@ -6,7 +6,7 @@ import {
   LogOut,
   Menu
 } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import toast, { Toaster } from 'react-hot-toast';
 import { apiClient, apiFetcher } from '../api/client';
 import PendingHospitals from '../components/PendingHospitals';
@@ -105,9 +105,9 @@ const AdminDashboard = () => {
 
   // Chart data for approval status
   const statusData = [
-    { name: 'Pending', value: stats.pending },
-    { name: 'Approved', value: stats.approved },
-    { name: 'Declined', value: stats.declined },
+    { name: 'Pending', value: stats.pending, color: '#FACC15' }, // yellow-400
+    { name: 'Approved', value: stats.approved, color: '#22C55E' }, // green-500
+    { name: 'Declined', value: stats.declined, color: '#EF4444' }, // red-500
   ];
 
   if (!isAdmin) {
@@ -173,7 +173,11 @@ const AdminDashboard = () => {
                   <XAxis dataKey="name" />
                   <YAxis allowDecimals={false} />
                   <Tooltip />
-                  <Bar dataKey="value" fill="#EF4444" />
+                  <Bar dataKey="value">
+                    {statusData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>

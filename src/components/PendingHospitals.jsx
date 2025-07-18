@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { apiFetcher } from '../api/client';
+import { apiFetcher, apiClient } from '../api/client';
 import toast from 'react-hot-toast';
 
 const PendingHospitals = ({ hospitals = [], onApprove, onDecline }) => (
@@ -37,6 +37,34 @@ export default PendingHospitals;
 export const PendingHospitalsPage = () => {
   const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  const handleApprove = async (id) => {
+    try {
+      await apiClient.patch(`/admin/approve/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+        },
+      });
+      toast.success('Hospital request approved!');
+      setHospitals((prev) => prev.filter((h) => h.id !== id));
+    } catch {
+      toast.error('Failed to approve hospital.');
+    }
+  };
+
+  const handleDecline = async (id) => {
+    try {
+      await apiClient.patch(`/admin/decline/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+        },
+      });
+      toast.success('Hospital request declined!');
+      setHospitals((prev) => prev.filter((h) => h.id !== id));
+    } catch {
+      toast.error('Failed to decline hospital.');
+    }
+  };
 
   useEffect(() => {
     apiFetcher('/admin/pending/hospitals')
@@ -59,7 +87,7 @@ export const PendingHospitalsPage = () => {
       {loading ? (
         <p className="text-center">Loading…</p>
       ) : (
-        <PendingHospitals hospitals={hospitals} onApprove={() => {}} onDecline={() => {}} />
+        <PendingHospitals hospitals={hospitals} onApprove={handleApprove} onDecline={handleDecline} />
       )}
     </div>
   );

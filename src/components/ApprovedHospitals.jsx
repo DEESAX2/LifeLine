@@ -11,7 +11,9 @@ const ApprovedHospitals = ({ hospitals = [] }) => (
       )}
       {hospitals.map((hospital) => (
         <li key={hospital.id} className="mb-2">
-          <strong>{hospital.name}</strong>
+          <strong>{hospital.name}</strong>{' — '}
+          {hospital.email}
+          {hospital.contact ? ` — ${hospital.contact}` : null}
           {hospital.location ? ` — ${hospital.location}` : null}
         </li>
       ))}
