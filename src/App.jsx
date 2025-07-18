@@ -8,8 +8,10 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import HospitalDashboard from "./pages/HospitalDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
-import BloodRequests from "./pages/BloodRequests";
-import PendingHospitals from "./components/PendingHospitals";
+import BloodRequests from "./pages/BloodRequests"
+import { PendingHospitalsPage } from "./components/PendingHospitals";
+import { ApprovedHospitalsPage } from "./components/ApprovedHospitals";
+import { DeclinedHospitalsPage } from "./components/DeclinedHospitals";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -40,7 +42,9 @@ const progressRouter = createBrowserRouter([
       { path: "/admin-events", element: <AdminEvents/> },      
        { path: "/admin-login", element: <AdminLogin/> },  
        { path: "/team", element: <OurTeam/> },
-       {path:"pending-hospitals", element: <PendingHospitals />},
+       { path: "/admin/pending-hospitals", element: <PendingHospitalsPage /> },
+{ path: "/admin/approved-hospitals", element: <ApprovedHospitalsPage /> },
+{ path: "/admin/declined-hospitals", element: <DeclinedHospitalsPage /> },
        
          
       
