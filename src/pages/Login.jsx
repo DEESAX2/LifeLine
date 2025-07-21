@@ -56,7 +56,7 @@ export default function Login() {
             <span className="text-buttonblue text-2xl">🏥</span>
           </div>
           <div>
-            <h2 className="text-2xl font-bold mb-6">Blood Bank Staff Login</h2>
+            <h2 className="text-2xl font-bold mb-6">Hospital Login</h2>
           </div>
 
           {error && (

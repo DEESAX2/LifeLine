@@ -85,7 +85,7 @@ export default function Register() {
           </div>
 
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Blood Bank Staff Registration</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Hospital Registration</h2>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4 text-left">
