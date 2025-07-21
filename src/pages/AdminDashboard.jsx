@@ -151,15 +151,15 @@ const AdminDashboard = () => {
         <main className="flex-1 p-6 bg-red-100 overflow-y-auto">
           {/* Summary Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-            <div className="bg-yellow-100 p-6 shadow-md rounded-lg text-center">
+            <div className="bg-yellow-200 p-6 shadow-md rounded-lg text-center">
               <h3 className="text-gray-700 ">Pending Approvals</h3>
               <p className="text-2xl font-bold text-red-600">{loading ? "..." : stats.pending}</p>
             </div>
-            <div className="bg-green-100 p-6 shadow-md rounded-lg text-center">
+            <div className="bg-green-300 p-6 shadow-md rounded-lg text-center">
                <h3 className="text-gray-700">Approved Hospitals</h3>
               <p className="text-2xl font-bold text-red-600">{loading ? "..." : stats.approved}</p>
             </div>
-            <div className="bg-red-200 p-6 shadow-md rounded-lg text-center">
+            <div className="bg-red-400 p-6 shadow-md rounded-lg text-center">
                <h3 className="text-gray-700">Declined Hospitals</h3>
               <p className="text-2xl font-bold text-red-600">{loading ? "..." : stats.declined}</p>
             </div>
