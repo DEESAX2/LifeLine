@@ -6,7 +6,6 @@ export default function DonorHistory() {
   return (
     <>
 
-      <UserhistoryNav />
 
       <section className="">
         <div className="m-8 flex flex-row gap-6 ">

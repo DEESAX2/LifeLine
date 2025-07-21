@@ -7,12 +7,20 @@ export default function DonorAppointments() {
   useEffect(() => {
     fetch("/api/v1/hospital/appointments", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`, // replace if needed
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       }
     })
       .then(res => res.json())
       .then(data => {
-        setResponses(data);
+        console.log("Donor appointment API response:", data);
+
+        const appointments = Array.isArray(data)
+          ? data
+          : Array.isArray(data.data)
+          ? data.data
+          : [];
+
+        setResponses(appointments);
         setLoading(false);
       })
       .catch(err => {
@@ -36,7 +44,6 @@ export default function DonorAppointments() {
 
       alert('Marked as donated successfully!');
 
-      // Optional: Refresh the list or update the status locally
       setResponses(prev =>
         prev.map(item =>
           item._id === appointmentId ? { ...item, status: 'donated' } : item
@@ -48,13 +55,23 @@ export default function DonorAppointments() {
     }
   };
 
-  if (loading) return <p>Loading donor responses...</p>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-40">
+        <svg className="animate-spin h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+        </svg>
+        <p className="ml-2 text-gray-700">Loading donor responses...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white shadow-md p-6 rounded-lg">
       <h2 className="text-xl font-semibold mb-4">Donor Appointments</h2>
       {responses.length === 0 ? (
-        <p>No donor responses yet.</p>
+        <p className="text-gray-500">No donor responses yet.</p>
       ) : (
         <ul className="space-y-4">
           {responses.map((donor, idx) => (
@@ -66,6 +83,7 @@ export default function DonorAppointments() {
               <p><strong>Age:</strong> {donor.age}</p>
               <p><strong>Weight:</strong> {donor.weight} kg</p>
               <p><strong>Medical Conditions:</strong> {donor.medicalConditions}</p>
+              <p><strong>Status:</strong> {donor.status}</p>
 
               <button
                 onClick={() => markAsDonated(donor._id)}
