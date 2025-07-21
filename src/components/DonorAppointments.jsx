@@ -5,7 +5,7 @@ export default function DonorAppointments() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/api/v1/hospital/appointments", {
+    fetch("https://lifeline-api-w5wc.onrender.com/api/v1/hospital/appointments", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       }
@@ -31,7 +31,7 @@ export default function DonorAppointments() {
 
   const markAsDonated = async (appointmentId) => {
     try {
-      const res = await fetch(`/api/v1/hospital/appointments/${appointmentId}/donated`, {
+      const res = await fetch(`https://lifeline-api-w5wc.onrender.com/api/v1/hospital/appointments/${appointmentId}/donated`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

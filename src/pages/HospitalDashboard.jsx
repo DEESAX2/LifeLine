@@ -1,44 +1,68 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import DashboardNav from "../components/DashboardNav";
 import Sidebar from "../components/SideBar";
 import CreateBloodRequestModal from "../components/CreateBloodRequestModal";
-import DonorAppointments from "../components/DonorAppointments";
-import RecentDonorResponseCard from "../components/RecentDonorResponseCard";
 import { useNavigate } from "react-router";
-import { Users, CalendarCheck, Activity} from 'lucide-react'; 
+import { Users, CalendarCheck, Activity } from 'lucide-react';
 
 export default function HospitalDashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentView, setCurrentView] = useState("dashboard");
   const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [appointments, setAppointments] = useState([]);
+  const [search, setSearch] = useState("");
+  const [loadingStats, setLoadingStats] = useState(true);
+  const [loadingAppointments, setLoadingAppointments] = useState(true);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate('/');
-  };
+  const handleLogout = () => navigate('/');
 
   useEffect(() => {
+    const token = localStorage.getItem('lifeline_token');
+
     const fetchStats = async () => {
       try {
-        const token = localStorage.getItem('accessToken');
-        const response = await fetch('/api/v1/hospital/dashboard/stats', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
+        const response = await axios.get(
+          'https://lifeline-api-w5wc.onrender.com/api/v1/hospital/dashboard/stats',
+          {
+            headers: { Authorization: `Bearer ${token}` }
           }
-        });
-        const data = await response.json();
-        setStats(data);
+        );
+        setStats(response.data);
       } catch (error) {
         console.error("Error fetching dashboard stats:", error);
       } finally {
-        setLoading(false);
+        setLoadingStats(false);
+      }
+    };
+
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get(
+          'https://lifeline-api-w5wc.onrender.com/api/v1/hospital/appointments',
+          {
+            headers: { Authorization: `Bearer ${token}` }
+          }
+        );
+        setAppointments(response.data);
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
+      } finally {
+        setLoadingAppointments(false);
       }
     };
 
     fetchStats();
+    fetchAppointments();
   }, []);
+
+  const filteredAppointments = appointments.filter(a =>
+    a.donor?.fullName?.toLowerCase().includes(search.toLowerCase()) ||
+    a.donor?.bloodType?.toLowerCase().includes(search.toLowerCase()) ||
+    a.donor?.email?.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -62,60 +86,85 @@ export default function HospitalDashboard() {
 
           {currentView === "dashboard" && (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
-              {/* Total Donors */}
               <div className="bg-blue-500 border border-none rounded-md p-6 flex justify-between items-center shadow">
                 <div>
                   <h2 className="text-md font-semibold text-white">Total Donors</h2>
-                  {loading ? (
+                  {loadingStats ? (
                     <p className="text-sm text-white mt-2">Loading...</p>
                   ) : (
                     <p className="text-2xl font-bold text-white mt-1">
-                      {stats?.totalDonors > 0 ? stats.totalDonors : "No data"}
+                      {stats?.totalDonors || "No data"}
                     </p>
                   )}
                 </div>
                 <Users className="text-white w-8 h-8" />
               </div>
 
-              {/* Pending Appointments */}
               <div className="bg-green-500 text-white border rounded-md p-6 flex justify-between items-center shadow">
                 <div>
                   <h2 className="text-md font-semibold">Pending Appointments</h2>
-                  {loading ? (
+                  {loadingStats ? (
                     <p className="text-sm text-white mt-2">Loading...</p>
                   ) : (
                     <p className="text-2xl font-bold mt-1">
-                      {stats?.pendingAppointments > 0 ? stats.pendingAppointments : "No data"}
+                      {stats?.pendingAppointments || "No data"}
                     </p>
                   )}
                 </div>
                 <CalendarCheck className="w-8 h-8" />
               </div>
 
-              {/* Blood Requests */}
               <div className="bg-[#008080] border border-none rounded-md p-6 flex justify-between items-center shadow">
                 <div>
                   <h2 className="text-md font-semibold text-white">Blood Requests</h2>
-                  {loading ? (
+                  {loadingStats ? (
                     <p className="text-sm text-white mt-2">Loading...</p>
                   ) : (
                     <p className="text-2xl font-bold mt-1 text-white">
-                      {stats?.totalRequests > 0 ? stats.totalRequests : "No data"}
+                      {stats?.totalRequests || "No data"}
                     </p>
                   )}
                 </div>
                 <Activity className="text-white w-8 h-8" />
               </div>
-
             </div>
           )}
 
-          {currentView === "appointments" && <DonorAppointments />}
+          {currentView === "appointments" && (
+            <div className="mt-10">
+              <h2 className="text-xl font-semibold mb-4">Donor Appointments</h2>
+              <input
+                type="text"
+                placeholder="Search by name, blood group, or email"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="mb-4 p-2 w-full md:w-1/2 border border-gray-300 rounded"
+              />
 
-          <div className="mt-6">
-            <RecentDonorResponseCard />
-          </div>
+              {loadingAppointments ? (
+                <p>Loading appointments...</p>
+              ) : filteredAppointments.length === 0 ? (
+                <p>No appointments found.</p>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {filteredAppointments.map((appt, idx) => (
+                    <div key={idx} className="p-4 border rounded-md shadow bg-white">
+                      <h3 className="text-lg font-semibold">{appt.donor?.fullName || "Unnamed Donor"}</h3>
+                      <p><strong>Age:</strong> {appt.donor?.age || "N/A"}</p>
+                      <p><strong>Email:</strong> {appt.donor?.email || "N/A"}</p>
+                      <p><strong>Blood Type:</strong> {appt.donor?.bloodType || "N/A"}</p>
+                      <p><strong>Phone:</strong> {appt.donor?.phone || "N/A"}</p>
+                      <p><strong>Has Donated:</strong> {appt.hasDonated ? "Yes" : "No"}</p>
+                      <p><strong>Date:</strong> {appt.date}</p>
+                      <p className="text-xs text-gray-500 mt-2">
+                        Submitted: {new Date(appt.createdAt).toLocaleString()}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </main>
       </div>
 
