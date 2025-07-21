@@ -42,7 +42,7 @@ export default function Login() {
 
   return (
     <>
-     <div className="relative min-h-screen flex items-start md:items-start justify-center bg-red-300">
+     <div className="relative min-h-screen flex items-start md:items-start justify-center bg-blue-200">
     <Link to= "/admin-login">
         <img
           src={lifelinelogo}

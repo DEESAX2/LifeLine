@@ -41,7 +41,7 @@ export default function AdminLogin() {
 
   return (
     <>
-      <div className="min-h-screen flex items-start md:items-start justify-center bg-red-300">
+      <div className="min-h-screen flex items-start md:items-start justify-center bg-blue-200">
         <div className="bg-white shadow-2xl h-130 rounded-lg p-4 sm:p-4 w-full max-w-sm sm:max-w-md md:max-w-lg text-center mt-4 md:mt-10 ">
           <div className="flex justify-center mb-4 space-x-2">
             <span className="text-red-500 text-2xl"><img src={blood} alt="blood" className="w-7" /></span>
