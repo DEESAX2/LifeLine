@@ -42,7 +42,7 @@ export default function Login() {
 
   return (
     <>
-     <div className="relative min-h-screen flex items-start md:items-start justify-center bg-gradient-to-b  from-submitred">
+     <div className="relative min-h-screen flex items-start md:items-start justify-center bg-red-300">
     <Link to= "/admin-login">
         <img
           src={lifelinelogo}
@@ -87,13 +87,13 @@ export default function Login() {
             />
             <button
               type="submit"
-              className="w-full py-2 mt-5 bg-buttonred text-white rounded hover:bg-red-700 transition"
+              className="w-full py-2 mt-5 bg-red-600 text-white rounded hover:bg-red-700 transition"
             >Login</button>
           </form>
 
           <div className="mt-6 text-sm">
             <p className="text-buttonblue">Don't have an account?{" "}
-              <Link to="/register" className="text-buttonblue hover:underline">Register</Link>
+              <Link to="/register" className="text-green-600 hover:underline">Register</Link>
             </p>
             <p className="mt-8">
               <Link to="/" className="text-gray-600 hover:underline">

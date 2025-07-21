@@ -59,7 +59,7 @@ export default function Register() {
 
   return (
     <>
-      <div className="min-h-screen flex items-start md:items-start justify-center bg-gradient-to-b  from-submitred px-2 sm:px-4 ">
+      <div className="min-h-screen flex items-start md:items-start justify-center bg-red-300 px-2 sm:px-4 ">
         <div className="bg-white shadow-2xl rounded-lg sm:p-4 w-full max-w-sm sm:max-w-md md:max-w-lg text-center  md:mt-5 ">
           <div className="flex justify-center mb-4 space-x-2">
             <span className="text-red-500 text-2xl"><img src={blood} alt="blood" className="w-7" /></span>
@@ -86,7 +86,7 @@ export default function Register() {
               placeholder="Enter Your Hospital Name"
               className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
-            <p className="font-bold mb-0">Email</p>
+            <p className="font-bold mb-0">Email <span className="text-red-600">*</span></p>
             <input
               type="email"
               name="email"
@@ -95,7 +95,7 @@ export default function Register() {
               placeholder="Enter Your Email"
               className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
-            <p className="font-bold mb-0">Password</p>
+            <p className="font-bold mb-0">Password <span className="text-red-600">*</span></p>
             <input
               type="password"
               name="password"
@@ -104,7 +104,7 @@ export default function Register() {
               placeholder="Set Your Password"
               className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
-            <p className="font-bold mb-0">Confirm Password</p>
+            <p className="font-bold mb-0">Confirm Password <span className="text-red-600">*</span></p>
             <input
               type="password"
               name="confirmPassword"
@@ -133,14 +133,14 @@ export default function Register() {
             />
             <button
               type="submit"
-              className="w-full py-2 mt-4 sm:mt-5 bg-buttonred text-white rounded hover:bg-red-700 transition"
+              className="w-full py-2 mt-4 sm:mt-5 bg-red-600 text-white rounded hover:bg-red-700 transition"
             >Register</button>
           </form>
 
           <div className="mt-5 sm:mt-6 text-sm">
             <p className="text-buttonblue">
               Already have an account?{" "}
-              <Link to="/login" className="text-buttonblue hover:underline">
+              <Link to="/login" className="text-green-600 hover:underline">
                 Login
               </Link>
             </p>

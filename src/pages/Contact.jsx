@@ -16,7 +16,7 @@ export default function Contact() {
 
   return (
     <>
-      <div className="bg-gradient-to-r from-buttonred to-gray-300 min-h-screen">
+      <div className="bg-blue-100 to-gray-300 min-h-screen">
         <header>
           <div className="bg-white max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             <div className="flex items-center gap-2">
@@ -34,7 +34,7 @@ export default function Contact() {
             </a>
           </div>
           <div className="py-10 px-4 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            <h2 className="text-3xl font-bold text-red-600 mb-2">
               Join the LifeLine Network
             </h2>
             <p className="text-gray-700 text-lg max-w-2xl mx-auto">
@@ -78,7 +78,7 @@ export default function Contact() {
             <img
               src={contact}
               alt="Contact"
-              className={`w-3/4 md:w-full max-w-md rounded-lg shadow transition-opacity duration-1000 ${
+              className={`w-3/4 md:w-full  h-110 max-w-md rounded-lg shadow transition-opacity duration-1000 ${
                 showImage ? "opacity-100" : "opacity-0"
               }`}
             />
