@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { apiFetcher } from '../api/client';
+import axios from 'axios';
 
 const DonationForm = () => {
   const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -14,9 +16,24 @@ const DonationForm = () => {
     appointmentDate: '',
   });
 
+  const [hospitals, setHospitals] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  useEffect(() => {
+    const fetchHospitals = async () => {
+        try {
+            const hospitals = await apiFetcher('/donor/hospitals');
+            setHospitals(hospitals || []);
+        } catch (error) {
+            console.error('Failed to fetch hospitals:', error);
+            setHospitals([]);
+        }
+    };
+    fetchHospitals();
+}, []);
+
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -32,10 +49,10 @@ const DonationForm = () => {
     setError('');
     setSuccess('');
 
-    const hospitalMap = {
-      'Korle-Bu Teaching Hospital': '68728a6c3e2fc43fa613da18',
-      'Komfo Anokye Teaching Hospital': '68728a6c3e2fc43fa613da19',
-    };
+    const hospitalMap = hospitals.reduce((acc, hospital) => {
+      acc[hospital.name] = hospital.id;
+      return acc;
+    }, {});
 
     const hospitalId = hospitalMap[formData.hospital];
 
@@ -59,10 +76,11 @@ const DonationForm = () => {
     };
 
     try {
-      await axios.post(
-        'https://lifeline-api-w5wc.onrender.com/api/v1/donor/appointment',
-        payload
-      );
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/donor/appointment`, payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
+        },
+      });
       setSuccess('Appointment successfully scheduled! Thank you for donating blood.');
       setFormData({
         fullName: '',
@@ -84,7 +102,6 @@ const DonationForm = () => {
   };
 
   const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-  const hospitals = ['Korle-Bu Teaching Hospital', 'Komfo Anokye Teaching Hospital'];
 
   return (
     <>
@@ -117,7 +134,9 @@ const DonationForm = () => {
             <input name="age" value={formData.age} onChange={handleChange} placeholder={t('agePlaceholder')} type="number" required className="input" />
             <select name="hospital" value={formData.hospital} onChange={handleChange} required className="input">
               <option value="">{t('selectHospital')}</option>
-              {hospitals.map(h => <option key={h} value={h}>{h}</option>)}
+              {hospitals.map(h => (
+                <option key={h.id} value={h.name}>{h.name}</option>
+              ))}
             </select>
             <input name="appointmentDate" value={formData.appointmentDate} onChange={handleChange} type="date" className="input" placeholder={t('preferredDatePlaceholder')} />
           </div>
