@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import DonorCard from './DonorCard'; // ✅ Make sure the path is correct based on your project
 
 export default function DonorAppointments() {
   const [responses, setResponses] = useState([]);
@@ -35,7 +36,7 @@ export default function DonorAppointments() {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem("token")}`, 
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         }
       });
 
@@ -44,6 +45,7 @@ export default function DonorAppointments() {
 
       alert('Marked as donated successfully!');
 
+      // ✅ Update UI after marking as donated
       setResponses(prev =>
         prev.map(item =>
           item._id === appointmentId ? { ...item, status: 'donated' } : item
@@ -68,32 +70,21 @@ export default function DonorAppointments() {
   }
 
   return (
-    <div className="bg-white shadow-md p-6 rounded-lg">
-      <h2 className="text-xl font-semibold mb-4">Donor Appointments</h2>
-      {responses.length === 0 ? (
-        <p className="text-gray-500">No donor responses yet.</p>
-      ) : (
-        <ul className="space-y-4">
-          {responses.map((donor, idx) => (
-            <li key={idx} className="border p-4 rounded-md">
-              <p><strong>Name:</strong> {donor.fullName}</p>
-              <p><strong>Email:</strong> {donor.email}</p>
-              <p><strong>Phone:</strong> {donor.phone}</p>
-              <p><strong>Blood Type:</strong> {donor.bloodType}</p>
-              <p><strong>Age:</strong> {donor.age}</p>
-              <p><strong>Weight:</strong> {donor.weight} kg</p>
-              <p><strong>Medical Conditions:</strong> {donor.medicalConditions}</p>
-              <p><strong>Status:</strong> {donor.status}</p>
+    <div className="bg-white p-6 rounded-lg">
+      <h2 className="text-2xl font-bold mb-6 text-center">Donor Appointments</h2>
 
-              <button
-                onClick={() => markAsDonated(donor._id)}
-                className="mt-3 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-              >
-                Mark as Donated
-              </button>
-            </li>
+      {responses.length === 0 ? (
+        <p className="text-gray-500 text-center">No donor responses yet.</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {responses.map((donor, idx) => (
+            <DonorCard
+              key={donor._id || idx}
+              donor={donor}
+              onMarkAsDonated={() => markAsDonated(donor._id)}
+            />
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

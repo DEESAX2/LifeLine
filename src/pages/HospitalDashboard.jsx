@@ -5,6 +5,7 @@ import Sidebar from "../components/SideBar";
 import CreateBloodRequestModal from "../components/CreateBloodRequestModal";
 import { useNavigate } from "react-router";
 import { Users, CalendarCheck, Activity } from 'lucide-react';
+import DonorCard from '../components/DonorCard';
 
 export default function HospitalDashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function HospitalDashboard() {
   const handleLogout = () => navigate('/');
 
   useEffect(() => {
-    const token = localStorage.getItem('lifeline_token');
+    const token = localStorage.getItem('ACCESS_TOKEN');
 
     const fetchStats = async () => {
       try {
@@ -147,20 +148,17 @@ export default function HospitalDashboard() {
                 <p>No appointments found.</p>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {filteredAppointments.map((appt, idx) => (
-                    <div key={idx} className="p-4 border rounded-md shadow bg-white">
-                      <h3 className="text-lg font-semibold">{appt.donor?.fullName || "Unnamed Donor"}</h3>
-                      <p><strong>Age:</strong> {appt.donor?.age || "N/A"}</p>
-                      <p><strong>Email:</strong> {appt.donor?.email || "N/A"}</p>
-                      <p><strong>Blood Type:</strong> {appt.donor?.bloodType || "N/A"}</p>
-                      <p><strong>Phone:</strong> {appt.donor?.phone || "N/A"}</p>
-                      <p><strong>Has Donated:</strong> {appt.hasDonated ? "Yes" : "No"}</p>
-                      <p><strong>Date:</strong> {appt.date}</p>
-                      <p className="text-xs text-gray-500 mt-2">
-                        Submitted: {new Date(appt.createdAt).toLocaleString()}
-                      </p>
-                    </div>
-                  ))}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                    {filteredAppointments.map((appointment) => (
+                      <DonorCard
+                        key={appointment._id}
+                        donor={appointment.donor}
+                        appointment={appointment}
+                      />
+                    ))}
+                  </div>
+
+
                 </div>
               )}
             </div>

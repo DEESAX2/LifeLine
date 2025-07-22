@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 export default function CreateBloodRequestModal({ isOpen, onClose, onRequestCreated }) {
   const [formData, setFormData] = useState({
@@ -25,9 +26,18 @@ export default function CreateBloodRequestModal({ isOpen, onClose, onRequestCrea
     setIsLoading(true);
 
     try {
-      // Simulate API request
-      console.log('Sending request:', formData);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // fake API delay
+      const token = localStorage.getItem("ACCESS_TOKEN"); 
+
+      const response = await axios.post(
+        "https://lifeline-api-w5wc.onrender.com/api/v1/hospital/requests",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
+      );
 
       alert("Blood Request Created Successfully");
 
@@ -39,10 +49,10 @@ export default function CreateBloodRequestModal({ isOpen, onClose, onRequestCrea
       });
 
       onClose();
-      onRequestCreated?.();
+      onRequestCreated?.(); // this is optional but useful if passed in
     } catch (error) {
-      console.error('Error:', error);
-      alert("Failed to create request. Try again.");
+      console.error("Create request failed:", error.response || error.message);
+      alert("Failed to create blood request.");
     } finally {
       setIsLoading(false);
     }
