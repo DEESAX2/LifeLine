@@ -83,7 +83,7 @@ export default function HospitalDashboard() {
           navigate={navigate}
         />
 
-        <main className="flex-1 p-6 overflow-y-auto bg-gray-50">
+        <main className="flex-1 p-6 overflow-y-auto bg-red-100">
           <h1 className="text-2xl font-bold mb-4 capitalize">{currentView}</h1>
 
           {currentView === "dashboard" && (
