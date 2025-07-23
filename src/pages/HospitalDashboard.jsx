@@ -6,6 +6,7 @@ import CreateBloodRequestModal from "../components/CreateBloodRequestModal";
 import { useNavigate } from "react-router";
 import { Users, CalendarCheck, Activity } from 'lucide-react';
 import DonorCard from '../components/DonorCard';
+import DonorResponses from '../components/DonorResponses';
 
 export default function HospitalDashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -87,19 +88,30 @@ export default function HospitalDashboard() {
 
           {currentView === "dashboard" && (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              <div className="bg-blue-500 border border-none rounded-md p-6 flex justify-between items-center shadow">
-                <div>
-                  <h2 className="text-md font-semibold text-white">Total Donors</h2>
-                  {loadingStats ? (
-                    <p className="text-sm text-white mt-2">Loading...</p>
-                  ) : (
-                    <p className="text-2xl font-bold text-white mt-1">
-                      {stats?.totalDonors || "No data"}
-                    </p>
-                  )}
+              {currentView === "dashboard" && (
+                <div className="bg-blue-500 border border-none rounded-md p-6 flex justify-between items-center shadow">
+                  <div>
+                    <h2 className="text-md font-semibold text-white">Total Donors</h2>
+                    {loadingAppointments ? (
+                      <p className="text-sm text-white mt-2">Loading...</p>
+                    ) : (
+                      <p className="text-2xl font-bold text-white mt-1">
+                        {
+                          [...new Set(
+                            appointments
+                              .map(item => item?.donor?.email?.toLowerCase().trim())
+                              .filter(Boolean)
+                          )].length
+                        }
+                      </p>
+                    )}
+                  </div>
+                  <Users className="text-white w-8 h-8" />
                 </div>
-                <Users className="text-white w-8 h-8" />
-              </div>
+
+
+              )}
+
 
               <div className="bg-green-500 text-white border rounded-md p-6 flex justify-between items-center shadow">
                 <div>
@@ -128,6 +140,13 @@ export default function HospitalDashboard() {
                 </div>
                 <Activity className="text-white w-8 h-8" />
               </div>
+            </div>
+          )}
+
+          {currentView === "donor-responses" && (
+            <div className="mt-10">
+              <h2 className="text-xl font-semibold mb-4">Donor Responses</h2>
+              <DonorResponses />
             </div>
           )}
 

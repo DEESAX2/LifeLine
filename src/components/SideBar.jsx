@@ -3,7 +3,7 @@ import { LayoutDashboard, Users, Calendar, History } from 'lucide-react';
 export default function Sidebar({ currentView, setCurrentView, navigate, sidebarOpen }) {
   const sidebarItems = [
     { title: "Dashboard", icon: LayoutDashboard, view: "dashboard" },
-    { title: "Donor Responses", icon: Users, view: "responses" },
+    { title: "Donor Responses", icon: Users, view: "donor-responses" }, 
     { title: "Appointments", icon: Calendar, view: "appointments" },
     { title: "Donor History", icon: History, onClick: () => navigate('/donor-history') },
   ];

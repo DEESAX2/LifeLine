@@ -1,87 +1,77 @@
-import { useEffect, useState } from 'react';
-import DonorCard from './DonorCard'; // ✅ Make sure the path is correct based on your project
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import DonorCard from "../components/DonorCard"; 
+import { toast } from "react-toastify";
 
 export default function DonorAppointments() {
   const [responses, setResponses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("ACCESS_TOKEN");
 
   useEffect(() => {
-    fetch("https://lifeline-api-w5wc.onrender.com/api/v1/hospital/appointments", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+    const fetchAppointments = async () => {
+      try {
+        const response = await axios.get(
+          "https://lifeline-api-w5wc.onrender.com/api/v1/hospital/appointments",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setResponses(response.data.appointments || []);
+      } catch (error) {
+        console.error("Failed to fetch appointments", error);
+        toast.error("Failed to fetch donor appointments");
+      } finally {
+        setLoading(false);
       }
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log("Donor appointment API response:", data);
+    };
 
-        const appointments = Array.isArray(data)
-          ? data
-          : Array.isArray(data.data)
-          ? data.data
-          : [];
-
-        setResponses(appointments);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching donor responses:', err);
-        setLoading(false);
-      });
-  }, []);
+    fetchAppointments();
+  }, [token]);
 
   const markAsDonated = async (appointmentId) => {
     try {
-      const res = await fetch(`https://lifeline-api-w5wc.onrender.com/api/v1/hospital/appointments/${appointmentId}/donated`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      await axios.patch(
+        `https://lifeline-api-w5wc.onrender.com/api/v1/hospital/appointments/${appointmentId}/status`,
+        { status: "donated" },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
 
-      if (!res.ok) throw new Error('Failed to update donation status');
-      const updated = await res.json();
+      toast.success("Marked as donated successfully");
 
-      alert('Marked as donated successfully!');
-
-      // ✅ Update UI after marking as donated
-      setResponses(prev =>
-        prev.map(item =>
-          item._id === appointmentId ? { ...item, status: 'donated' } : item
+      setResponses((prev) =>
+        prev.map((a) =>
+          a._id === appointmentId ? { ...a, status: "donated" } : a
         )
       );
-    } catch (err) {
-      console.error(err);
-      alert('Error marking as donated.');
+    } catch (error) {
+      console.error("Failed to update status", error);
+      toast.error("Failed to mark as donated");
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-40">
-        <svg className="animate-spin h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-        </svg>
-        <p className="ml-2 text-gray-700">Loading donor responses...</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="bg-white p-6 rounded-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center">Donor Appointments</h2>
-
-      {responses.length === 0 ? (
-        <p className="text-gray-500 text-center">No donor responses yet.</p>
+    <div className="mt-6">
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">
+        Donor Appointments
+      </h2>
+      {loading ? (
+        <p className="text-gray-600">Loading appointments...</p>
+      ) : responses.length === 0 ? (
+        <p className="text-gray-500 text-center">No donor appointments found.</p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {responses.map((donor, idx) => (
+          {responses.map((appointment) => (
             <DonorCard
-              key={donor._id || idx}
-              donor={donor}
-              onMarkAsDonated={() => markAsDonated(donor._id)}
+              key={appointment._id}
+              donor={appointment}
+              onMarkAsDonated={() => markAsDonated(appointment._id)}
             />
           ))}
         </div>
