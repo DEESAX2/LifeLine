@@ -44,14 +44,14 @@ export default function Login() {
   return (
     <>
      <div className="relative min-h-screen flex items-start md:items-start justify-center" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-    <Link to= "/admin-login">
+
         <img
           src={lifelinelogo}
           alt="LifeLine Logo"
           className=" absolute top-4 right-4 w-10 h-10 "
-        /></Link>
-      <div className="min-h-screen flex items-start md:items-start justify-center bg-gradient from-red-300 to-red-500">
-        <div className="bg-white shadow-3xl h-130 w-160 rounded-lg p-4 sm:p-4 max-w-sm sm:max-w-md md:max-w-lg text-center mt-4 md:mt-10 ">
+        />
+      <div className="min-h-screen flex items-start md:items-start justify-center">
+        <div className="animate-fadeUp bg-white shadow-3xl h-130 w-160 rounded-lg p-4 sm:p-4 max-w-sm sm:max-w-md md:max-w-lg text-center mt-4 md:mt-10 ">
           <div className="flex justify-center mb-4 space-x-2">
             <span className="text-red-500 text-2xl"><img src={blood} alt="blood" className="w-7 animate-heartbeat" /></span>
             <span className="text-buttonblue text-2xl">🏥</span>
