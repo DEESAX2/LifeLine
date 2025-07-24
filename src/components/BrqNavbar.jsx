@@ -23,7 +23,7 @@ const BrqNavbar = () => {
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md px-4 py-2 flex items-center justify-between z-50">
       {/* Logo */}
       <div className="flex items-center gap-3">
-        <a href="/admin-dashboard">
+        <a href="/">
           <img
             src={logoImg}
             alt="LifeLine Logo"
