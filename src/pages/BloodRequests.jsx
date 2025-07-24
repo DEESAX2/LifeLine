@@ -2,9 +2,9 @@ import React from 'react';
 import useSWR from 'swr';
 import BrqNavbar from '../components/BrqNavbar';
 import BloodRequestCard from '../components/BloodRequestCard';
-import { apiFetcher } from '../api/client.js'; // Assuming you renamed `fetcher` to this
+import { apiFetcher } from '../api/client.js';
 
-const API_URL = '/donor/blood/request'; // cleaner since your baseURL is already set
+const API_URL = '/donor/blood/request'; 
 
 const BloodRequests = () => {
   const { data, error, isLoading } = useSWR(API_URL, apiFetcher);

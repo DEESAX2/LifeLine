@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import blood from "../assets/Images/blood.png";
+import backgroundImage from "../assets/Images/background.png";
 import { apiClient } from "../api/client";
 import { useNavigate } from "react-router";
 import { ToastContainer, toast } from "react-toastify";
@@ -75,11 +76,11 @@ export default function Register() {
 
   return (
     <>
-      <div className="min-h-screen flex items-start md:items-start justify-center bg-blue-200 px-2 sm:px-4 ">
-        <div className="bg-white shadow-2xl rounded-lg sm:p-4 w-full max-w-sm sm:max-w-md md:max-w-lg text-center md:mt-5">
+      <div className="min-h-screen flex items-start md:items-start justify-center px-2 sm:px-4" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="animate-fadeUp bg-white shadow-2xl rounded-lg sm:p-4 w-full max-w-sm sm:max-w-md md:max-w-lg text-center md:mt-5">
           <div className="flex justify-center mb-4 space-x-2">
             <span className="text-red-500 text-2xl">
-              <img src={blood} alt="blood" className="w-7" />
+              <img src={blood} alt="blood" className="w-7 animate-heartbeat" />
             </span>
             <span className="text-buttonblue text-2xl">🏥</span>
           </div>

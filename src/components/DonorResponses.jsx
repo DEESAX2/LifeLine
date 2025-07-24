@@ -1,110 +1,133 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Users, Mail, Phone, Clock, MapPin, Heart } from 'lucide-react';
-
-const getBloodTypeColor = (bloodType) => {
-  const colors = {
-    'O+': 'bg-red-100 text-red-800 border-red-200',
-    'O-': 'bg-red-100 text-red-800 border-red-200',
-    'A+': 'bg-blue-100 text-blue-800 border-blue-200',
-    'A-': 'bg-blue-100 text-blue-800 border-blue-200',
-    'B+': 'bg-green-100 text-green-800 border-green-200',
-    'B-': 'bg-green-100 text-green-800 border-green-200',
-    'AB+': 'bg-purple-100 text-purple-800 border-purple-200',
-    'AB-': 'bg-purple-100 text-purple-800 border-purple-200',
-  };
-  return colors[bloodType] || 'bg-gray-100 text-gray-800 border-gray-200';
-};
-
-const getStatusColor = (status) => {
-  const colors = {
-    'new': 'bg-yellow-100 text-yellow-800',
-    'contacted': 'bg-blue-100 text-blue-800',
-    'scheduled': 'bg-green-100 text-green-800',
-  };
-  return colors[status] || 'bg-gray-100 text-gray-800';
-};
-
-const getUrgencyColor = (urgency) => {
-  const colors = {
-    'critical': 'bg-red-500',
-    'high': 'bg-orange-500',
-    'medium': 'bg-yellow-500',
-    'low': 'bg-green-500',
-  };
-  return colors[urgency] || 'bg-gray-500';
-};
-
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function DonorResponses() {
-  const [donors, setDonors] = useState([]);
+  const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchName, setSearchName] = useState("");
+  const [searchAge, setSearchAge] = useState("");
+
+  const [contactedDonors, setContactedDonors] = useState(() => {
+    const stored = localStorage.getItem("contactedDonors");
+    return stored ? JSON.parse(stored) : {};
+  });
+
+  const token = localStorage.getItem("ACCESS_TOKEN");
 
   useEffect(() => {
-    const fetchDonors = async () => {
-      const token = localStorage.getItem('token');
+    const fetchAppointments = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/hospital/appointments`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setDonors(res.data.data);
-      } catch (err) {
-        console.error('Error fetching donor responses:', err);
+        const response = await axios.get(
+          "https://lifeline-api-w5wc.onrender.com/api/v1/hospital/appointments",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setAppointments(response.data);
+      } catch (error) {
+        console.error("Error fetching appointments:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchDonors();
-  }, []);
+    fetchAppointments();
+  }, [token]);
+
+  const handleContactClick = (donorId, donorData) => {
+    const updated = { ...contactedDonors, [donorId]: true };
+    setContactedDonors(updated);
+    localStorage.setItem("contactedDonors", JSON.stringify(updated));
+
+    // Save to donor history
+    const history = JSON.parse(localStorage.getItem("donorHistory")) || [];
+    localStorage.setItem("donorHistory", JSON.stringify([...history, donorData]));
+
+    // Remove from UI
+    setAppointments((prev) =>
+      prev.filter((item) => item.donor?.id !== donorId)
+    );
+  };
+
+  const filteredAppointments = appointments.filter((item) => {
+    const fullName = item.donor?.fullName?.toLowerCase() || "";
+    const nameMatch = fullName.includes(searchName.toLowerCase());
+    const ageMatch = searchAge
+      ? item.donor?.age === parseInt(searchAge)
+      : true;
+    const isContacted = contactedDonors[item.donor?.id];
+    return nameMatch && ageMatch && !isContacted;
+  });
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md max-h-[80vh] overflow-y-auto">
-      <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-        <Users className="text-red-600" />
-        Recent Donor Responses
-        <span className="ml-auto text-sm bg-gray-100 text-gray-700 px-2 py-1 rounded">
-          {donors.length} Active
-        </span>
-      </h2>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-6">Donor Responses</h2>
+
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+        <input
+          type="text"
+          placeholder="Search by name"
+          className="border border-gray-300 rounded-md p-2 w-full sm:w-1/2"
+          value={searchName}
+          onChange={(e) => setSearchName(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Search by age"
+          className="border border-gray-300 rounded-md p-2 w-full sm:w-1/2"
+          value={searchAge}
+          onChange={(e) => setSearchAge(e.target.value)}
+        />
+      </div>
 
       {loading ? (
-        <p>Loading...</p>
+        <p>Loading donor responses...</p>
+      ) : filteredAppointments.length === 0 ? (
+        <p>No matching donors found.</p>
       ) : (
-        <div className="space-y-4">
-          {donors.map((donor) => (
-            <div key={donor._id} className="border p-4 rounded-lg hover:shadow transition bg-white">
-              <div className="flex justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <div className={`w-3 h-3 rounded-full ${getUrgencyColor(donor.urgency)}`} />
-                  <h4 className="font-semibold text-gray-900">{donor.fullName}</h4>
-                  <span className={`text-xs px-2 py-1 rounded border ${getBloodTypeColor(donor.bloodType)}`}>
-                    {donor.bloodType}
-                  </span>
-                </div>
-                <span className={`text-xs px-2 py-1 rounded ${getStatusColor(donor.status)}`}>
-                  {donor.status}
-                </span>
-              </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredAppointments.map((appointment) => {
+            const donor = appointment.donor;
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-700">
-                <div className="flex items-center gap-2"><Mail className="w-4 h-4" /> {donor.email}</div>
-                <div className="flex items-center gap-2"><Phone className="w-4 h-4" /> {donor.phone}</div>
-                <div className="flex items-center gap-2"><MapPin className="w-4 h-4" /> {donor.location}</div>
-                <div className="flex items-center gap-2"><Clock className="w-4 h-4" /> {donor.preferredTime}</div>
-              </div>
-
-              {donor.message && (
-                <p className="mt-3 text-sm text-gray-600">
-                  <Heart className="inline w-4 h-4 text-red-500 mr-1" />
-                  {donor.message}
+            return (
+              <div
+                key={appointment.id}
+                className="bg-white p-4 rounded-lg shadow-md border"
+              >
+                <h3 className="text-lg font-bold mb-2">{donor?.fullName}</h3>
+                <p className="text-sm"><strong>Age:</strong> {donor?.age}</p>
+                <p className="text-sm"><strong>Email:</strong> {donor?.email}</p>
+                <p className="text-sm"><strong>Phone:</strong> {donor?.phone}</p>
+                <p className="text-sm"><strong>Blood Type:</strong> {donor?.bloodType}</p>
+                <p className="text-sm">
+                  <strong>Appointment:</strong> {new Date(appointment.createdAt).toLocaleDateString()}
                 </p>
-              )}
-            </div>
-          ))}
+
+                <div className="flex gap-3 mt-4">
+                  <a
+                    href={`mailto:${donor?.email}`}
+                    className="bg-blue-600 text-white text-sm px-4 py-1 rounded hover:bg-blue-700"
+                  >
+                    Email
+                  </a>
+                  <a
+                    href={`tel:${donor?.phone}`}
+                    className="bg-green-600 text-white text-sm px-4 py-1 rounded hover:bg-green-700"
+                  >
+                    Call
+                  </a>
+                  <button
+                    onClick={() => handleContactClick(donor?.id, appointment)}
+                    className="bg-red-600 hover:bg-purple-700 text-white text-sm px-4 py-1 rounded"
+                  >
+                    Completed
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

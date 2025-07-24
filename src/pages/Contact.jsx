@@ -16,7 +16,7 @@ export default function Contact() {
 
   return (
     <>
-      <div className="bg-blue-100 to-gray-300 min-h-screen">
+      <div className="bg-red-200 to-gray-300 min-h-screen">
         <header>
           <div className="bg-white max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             <div className="flex items-center gap-2">

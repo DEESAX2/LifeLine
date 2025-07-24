@@ -5,6 +5,8 @@ import Sidebar from "../components/SideBar";
 import CreateBloodRequestModal from "../components/CreateBloodRequestModal";
 import { useNavigate } from "react-router";
 import { Users, CalendarCheck, Activity } from 'lucide-react';
+import DonorCard from '../components/DonorCard';
+import DonorResponses from '../components/DonorResponses';
 
 export default function HospitalDashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -20,7 +22,7 @@ export default function HospitalDashboard() {
   const handleLogout = () => navigate('/');
 
   useEffect(() => {
-    const token = localStorage.getItem('lifeline_token');
+    const token = localStorage.getItem('ACCESS_TOKEN');
 
     const fetchStats = async () => {
       try {
@@ -81,24 +83,35 @@ export default function HospitalDashboard() {
           navigate={navigate}
         />
 
-        <main className="flex-1 p-6 overflow-y-auto bg-gray-50">
+        <main className="flex-1 p-6 overflow-y-auto bg-red-100">
           <h1 className="text-2xl font-bold mb-4 capitalize">{currentView}</h1>
 
           {currentView === "dashboard" && (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              <div className="bg-blue-500 border border-none rounded-md p-6 flex justify-between items-center shadow">
-                <div>
-                  <h2 className="text-md font-semibold text-white">Total Donors</h2>
-                  {loadingStats ? (
-                    <p className="text-sm text-white mt-2">Loading...</p>
-                  ) : (
-                    <p className="text-2xl font-bold text-white mt-1">
-                      {stats?.totalDonors || "No data"}
-                    </p>
-                  )}
+              {currentView === "dashboard" && (
+                <div className="bg-blue-500 border border-none rounded-md p-6 flex justify-between items-center shadow">
+                  <div>
+                    <h2 className="text-md font-semibold text-white">Total Donors</h2>
+                    {loadingAppointments ? (
+                      <p className="text-sm text-white mt-2">Loading...</p>
+                    ) : (
+                      <p className="text-2xl font-bold text-white mt-1">
+                        {
+                          [...new Set(
+                            appointments
+                              .map(item => item?.donor?.email?.toLowerCase().trim())
+                              .filter(Boolean)
+                          )].length
+                        }
+                      </p>
+                    )}
+                  </div>
+                  <Users className="text-white w-8 h-8" />
                 </div>
-                <Users className="text-white w-8 h-8" />
-              </div>
+
+
+              )}
+
 
               <div className="bg-green-500 text-white border rounded-md p-6 flex justify-between items-center shadow">
                 <div>
@@ -130,6 +143,13 @@ export default function HospitalDashboard() {
             </div>
           )}
 
+          {currentView === "donor-responses" && (
+            <div className="mt-10">
+              <h2 className="text-xl font-semibold mb-4">Donor Responses</h2>
+              <DonorResponses />
+            </div>
+          )}
+
           {currentView === "appointments" && (
             <div className="mt-10">
               <h2 className="text-xl font-semibold mb-4">Donor Appointments</h2>
@@ -147,20 +167,17 @@ export default function HospitalDashboard() {
                 <p>No appointments found.</p>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {filteredAppointments.map((appt, idx) => (
-                    <div key={idx} className="p-4 border rounded-md shadow bg-white">
-                      <h3 className="text-lg font-semibold">{appt.donor?.fullName || "Unnamed Donor"}</h3>
-                      <p><strong>Age:</strong> {appt.donor?.age || "N/A"}</p>
-                      <p><strong>Email:</strong> {appt.donor?.email || "N/A"}</p>
-                      <p><strong>Blood Type:</strong> {appt.donor?.bloodType || "N/A"}</p>
-                      <p><strong>Phone:</strong> {appt.donor?.phone || "N/A"}</p>
-                      <p><strong>Has Donated:</strong> {appt.hasDonated ? "Yes" : "No"}</p>
-                      <p><strong>Date:</strong> {appt.date}</p>
-                      <p className="text-xs text-gray-500 mt-2">
-                        Submitted: {new Date(appt.createdAt).toLocaleString()}
-                      </p>
-                    </div>
-                  ))}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                    {filteredAppointments.map((appointment) => (
+                      <DonorCard
+                        key={appointment._id}
+                        donor={appointment.donor}
+                        appointment={appointment}
+                      />
+                    ))}
+                  </div>
+
+
                 </div>
               )}
             </div>

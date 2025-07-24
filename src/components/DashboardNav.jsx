@@ -20,16 +20,17 @@ export default function DashboardNav({
   useEffect(() => {
     const fetchHospitalProfile = async () => {
       try {
-        const token = localStorage.getItem('accessToken');
+        const token = localStorage.getItem('ACCESS_TOKEN');
         const response = await axios.get(
-          '/api/v1/hospitals/profile',
+          'https://lifeline-api-w5wc.onrender.com/api/v1/hospital/profile',
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        const name = response.data?.data?.hospitalName;
+
+        const name = response.data?.name;
         if (name) {
           setHospitalName(name);
         }
@@ -40,6 +41,8 @@ export default function DashboardNav({
 
     fetchHospitalProfile();
   }, []);
+
+
 
   return (
     <nav className="bg-red-500 p-4 text-white flex justify-between items-center shadow-lg">
@@ -55,6 +58,8 @@ export default function DashboardNav({
           <span className="text-xl lg:text-2xl font-bold">
             {hospitalName}
           </span>
+
+
         </div>
       </div>
       <div className="flex items-center space-x-2 lg:space-x-4">
