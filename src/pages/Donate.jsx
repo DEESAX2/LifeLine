@@ -81,7 +81,7 @@ const DonationForm = () => {
           Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN')}`,
         },
       });
-      setSuccess('Appointment successfully scheduled! Thank you for donating blood.');
+      setSuccess('Appointment successfully scheduled!Thank you for taking this bold step to save lives.');
       setFormData({
         fullName: '',
         email: '',
