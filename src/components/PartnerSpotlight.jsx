@@ -7,8 +7,8 @@ import hosp4 from '../assets/Images/hosp4.png';
 // Add a name for each logo in the same order
 const logos = [
   { src: hosp1, name: "Korle Bu Teaching Hospital" },
-  { src: hosp2, name: "37 Military Hospital" },
-  { src: hosp3, name: "Komfo Anokye Teaching Hospital" },
+  { src: hosp2, name: "Mest Africa" },
+  { src: hosp3, name: "Master Card Foundation" },
   { src: hosp4, name: "Cape Coast Teaching Hospital" }
 ];
 
