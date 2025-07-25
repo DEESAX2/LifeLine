@@ -20,6 +20,7 @@ export default function Contact() {
         <header>
           <div className="bg-white max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             <div className="flex items-center gap-2">
+            
               <span className="text-red-600 text-2xl">
                 <img src={lifelinelogo} alt="" className="w-16 h-16" />
               </span>
