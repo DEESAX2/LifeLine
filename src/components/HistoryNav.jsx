@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Hospital, Menu, Plus, LogOut } from 'lucide-react';
+import { Hospital, Menu, ArrowLeft, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-export default function DashboardNav({
-  setIsCreateModalOpen,
-  handleLogout,
-  sidebarOpen,
-  setSidebarOpen
-}) {
+export default function HistoryNav() {
   const navigate = useNavigate();
   const [hospitalName, setHospitalName] = useState('Hospital');
-  const [isApproved, setIsApproved] = useState(false);
+  const [isApproved, setIsApproved] = useState(false); 
+
+  const handleLogout = () => {
+    localStorage.removeItem("ACCESS_TOKEN");
+    toast.success("Logged out successfully");
+  };
 
   const logoutAndRedirect = () => {
     handleLogout();
@@ -48,11 +48,6 @@ export default function DashboardNav({
     fetchHospitalProfile();
   }, []);
 
-  const handleNewRequestClick = () => {
-
-    setIsCreateModalOpen(true);
-  };
-
   return (
     <nav className="bg-red-500 p-4 text-white flex justify-between items-center shadow-lg">
       <div className="flex items-center gap-4">
@@ -72,14 +67,13 @@ export default function DashboardNav({
 
       <div className="flex items-center space-x-2 lg:space-x-4">
         <button
-          onClick={handleNewRequestClick}
+          onClick={() => navigate('/hospital-dashboard')} 
           className="text-sm lg:text-base px-4 py-2 rounded cursor-pointer flex items-center bg-white text-red-600 hover:bg-gray-100"
         >
-          <Plus className="w-4 h-4 mr-1 lg:mr-2 inline" />
-          <span className="hidden sm:inline">New Request</span>
+          <ArrowLeft className="w-4 h-4 mr-1 lg:mr-2 inline" />
+          <span className="hidden sm:inline">Back to Dashboard</span>
           <span className="sm:hidden">New</span>
         </button>
-
 
         <button
           onClick={logoutAndRedirect}

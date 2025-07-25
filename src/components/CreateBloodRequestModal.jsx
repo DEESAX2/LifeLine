@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function CreateBloodRequestModal({ isOpen, onClose, onRequestCreated }) {
@@ -10,6 +10,35 @@ export default function CreateBloodRequestModal({ isOpen, onClose, onRequestCrea
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isApproved, setIsApproved] = useState(false);
+  const [checkingApproval, setCheckingApproval] = useState(true);
+
+  // Check approval status when component mounts or when isOpen changes
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const checkApprovalStatus = () => {
+      try {
+        const token = localStorage.getItem("ACCESS_TOKEN");
+        if (!token) {
+          setIsApproved(false);
+          return;
+        }
+
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const isTokenValid = payload.exp * 1000 > Date.now();
+        setIsApproved(payload.isApproved && isTokenValid);
+      } catch (error) {
+        console.error("Approval check error:", error);
+        setIsApproved(false);
+      } finally {
+        setCheckingApproval(false);
+      }
+    };
+
+    setCheckingApproval(true);
+    checkApprovalStatus();
+  }, [isOpen]);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -49,16 +78,45 @@ export default function CreateBloodRequestModal({ isOpen, onClose, onRequestCrea
       });
 
       onClose();
-      onRequestCreated?.(); // this is optional but useful if passed in
+      onRequestCreated?.(); 
     } catch (error) {
       console.error("Create request failed:", error.response || error.message);
-      alert("Failed to create blood request.");
+      alert("Failed to create blood request. Please check your approval status.");
     } finally {
       setIsLoading(false);
     }
   };
 
   if (!isOpen) return null;
+
+  if (checkingApproval) {
+    return (
+      <div className="fixed inset-0 flex justify-center items-center z-50 bg-white/30 backdrop-blur-sm">
+        <div className="bg-white rounded-lg p-6 w-full max-w-md relative shadow-lg">
+          <p className="text-center">Checking your access permissions...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isApproved) {
+    return (
+      <div className="fixed inset-0 flex justify-center items-center z-50 bg-white/30 backdrop-blur-sm">
+        <div className="bg-white rounded-lg p-6 w-full max-w-md relative shadow-lg">
+          <h2 className="text-lg font-semibold mb-4 text-center">Access Restricted</h2>
+          <p className="text-center text-gray-600 mb-4">
+            Your hospital account is currently awaiting approval. Please check back later once your access has been granted.
+          </p>
+          <button
+            onClick={onClose}
+            className="w-full bg-red-600 text-white rounded-md px-4 py-2 text-sm hover:bg-red-700 cursor-pointer"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50 bg-white/30 backdrop-blur-sm">

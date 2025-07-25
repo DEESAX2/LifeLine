@@ -1,40 +1,54 @@
-import { CalendarCheck, Phone } from 'lucide-react';
+import { useState } from "react";
 
-export default function DonorCard({ donor, onMarkAsDonated }) {
+export default function DonorCard({ donor, appointment, onMarkCompleted }) {
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  const handleMarkCompleted = async () => {
+    if (onMarkCompleted) {
+      await onMarkCompleted();
+      setIsCompleted(true);
+    }
+  };
+
+  const formattedDate = appointment?.date
+    ? new Date(appointment.date).toLocaleDateString("en-GB")
+    : "N/A";
+
   return (
-    <div className="bg-[#008080] text-white rounded-xl shadow-md p-6 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
-      {/* Left section */}
-      <div className="flex-1">
-        <h3 className="text-lg font-semibold">{donor.fullName || "Unnamed Donor"}</h3>
-        <p className="text-sm mt-1">{donor.email}</p>
-        <p className="text-sm mt-1">Blood Type: {donor.bloodGroup || "N/A"}</p>
-        <p className="text-sm mt-1">
-          Appointment Date:{" "}
-          {donor.appointment
-            ? new Date(donor.appointment).toLocaleDateString()
-            : "N/A"}
-        </p>
+    <div className="bg-white p-4 rounded-lg shadow-md border">
+      <h3 className="text-lg font-bold mb-2">{donor?.fullName}</h3>
+      <p className="text-sm"><strong>Age:</strong> {donor?.age}</p>
+      <p className="text-sm"><strong>Email:</strong> {donor?.email}</p>
+      <p className="text-sm"><strong>Phone:</strong> {donor?.phone}</p>
+      <p className="text-sm"><strong>Blood Type:</strong> {donor?.bloodType}</p>
+      <p className="text-sm"><strong>Appointment:</strong> {formattedDate}</p>
 
-        {donor.status !== "donated" ? (
-          <button
-            className="mt-3 bg-white text-[#008080] px-4 py-1 rounded-full text-sm font-semibold hover:bg-gray-100"
-            onClick={onMarkAsDonated}
+      <p className="text-sm mt-2">
+        <strong>Status:</strong>{" "}
+        <span className={isCompleted ? "text-green-600 font-semibold" : "text-yellow-600 font-semibold"}>
+          {isCompleted ? "Completed" : "Pending"}
+        </span>
+      </p>
+
+      <div className="mt-4 flex gap-2">
+        {/* Email Button */}
+        {donor?.email && (
+          <a
+            href={`mailto:${donor.email}`}
+            className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-1 rounded cursor-pointer"
           >
-            Mark as Donated
-          </button>
-        ) : (
-          <span className="mt-3 inline-block text-green-300 font-semibold">
-            Already Donated
-          </span>
+            Email
+          </a>
         )}
-      </div>
 
-      {/* Right section */}
-      <div className="flex sm:flex-col items-center gap-4 sm:items-end">
-        <CalendarCheck className="w-8 h-8" />
-        <a href={`tel:${donor.phoneNumber}`}>
-          <Phone className="w-6 h-6 text-white hover:text-gray-200" />
-        </a>
+        {/* Mark Completed Button */}
+        <button
+          onClick={handleMarkCompleted}
+          className="bg-green-700 hover:bg-green-800 text-white text-sm px-4 py-1 rounded cursor-pointer disabled:opacity-50"
+          disabled={isCompleted}
+        >
+          {isCompleted ? "Marked as Completed" : "Mark as Completed"}
+        </button>
       </div>
     </div>
   );
