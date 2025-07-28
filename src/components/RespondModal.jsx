@@ -105,7 +105,7 @@ const RespondModal = ({ isOpen, onClose, requestId, token, defaultBloodType }) =
           exit="hidden"
         >
           <motion.div
-            className="bg-white rounded-lg shadow-xl w-full max-w-md max-h-[90vh]  p-6"
+            className="bg-white w-full max-w-md max-h-[90vh]  p-6"
             variants={modal}
             initial="hidden"
             animate="visible"
@@ -135,7 +135,7 @@ const RespondModal = ({ isOpen, onClose, requestId, token, defaultBloodType }) =
                 value={form.fullName}
                 onChange={handleChange}
                 required
-                className="w-full border p-2 rounded"
+                className="w-full border p-2 "
               />
               <input
                 type="number"
@@ -181,6 +181,7 @@ const RespondModal = ({ isOpen, onClose, requestId, token, defaultBloodType }) =
               <input
                 type="date"
                 name="date"
+                placeholder='date'
                 value={form.date}
                 onChange={handleChange}
                 min={today}

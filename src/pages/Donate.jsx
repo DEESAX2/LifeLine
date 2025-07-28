@@ -101,7 +101,7 @@ const DonationForm = () => {
     }
   };
 
-  const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+  const bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'I Dont Know'];
 
   return (
     <>
