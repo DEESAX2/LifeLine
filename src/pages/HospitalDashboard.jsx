@@ -6,6 +6,7 @@ import CreateBloodRequestModal from "../components/CreateBloodRequestModal";
 import { useNavigate } from "react-router";
 import { Activity, CalendarCheck,  Users,  PlusCircle, Printer, Download,Zap} from 'lucide-react';
 import DonorResponses from '../components/DonorResponses';
+import RequestHospital from '../components/RequestHospital';
 
 export default function HospitalDashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -267,7 +268,7 @@ export default function HospitalDashboard() {
                       <Download className="h-6 w-6 text-gray-500 mb-1" />
                       <span className="text-sm">Export Data</span>
                     </button>
-                    <div className="p-3 opacity-0"></div> {/* Empty spacer */}
+                    <div className="p-3 opacity-0"></div> 
                   </div>
                 </div>
               </div>
@@ -279,6 +280,13 @@ export default function HospitalDashboard() {
               <DonorResponses />
             </div>
           )}
+
+          {currentView === "blood-requests" && (
+            <div className="mt-4">
+            <RequestHospital />
+            </div>
+          )}
+
         </main>
 
         {disabledOverlay && (

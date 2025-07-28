@@ -1,10 +1,11 @@
-import { LayoutDashboard, Users, History } from 'lucide-react';
+import { LayoutDashboard, Users, History, Droplet, FileText } from 'lucide-react';
 
 export default function Sidebar({ currentView, setCurrentView, navigate, sidebarOpen }) {
   const sidebarItems = [
     { title: "Dashboard", icon: LayoutDashboard, view: "dashboard",  },
     { title: "Donor Responses", icon: Users, view: "donor-responses"},
     { title: "Donor History", icon: History, onClick: () => navigate('/donor-history') },
+    { title: "Blood Requests", icon: FileText, view: "blood-requests" },
   ];
 
   return (
