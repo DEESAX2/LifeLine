@@ -8,12 +8,12 @@ import team1 from '../assets/Images/team1.jpg';
 import { HiArrowLeft } from 'react-icons/hi';
 
 const members = [
-  { img: ram, name: 'Ms. Rahmat Atitola', role: 'Supervisor' },
-  { img: earl, name: 'Mr. Earl Osafo', role: 'Frontend Developer' },
+  { img: earl, name: 'Mr. Earl Osafo', role: 'Web Developer' },
   { img: esther, name: 'Ms. Esther Manor', role: 'Frontend Developer' },
   { img: des, name: 'Mr. Desmond Kponyo', role: 'Backend Developer' },
   { img: liz, name: 'Ms. Elizabeth Harrison', role: 'Frontend Developer' },
   { img: team1, name: 'Ms. Sandra Allotey', role: 'Frontend Developer' },
+  { img: ram, name: 'Ms. Rahmat Atitola', role: 'Supervisor' },
 ];
 
 const OurTeam = () => {
